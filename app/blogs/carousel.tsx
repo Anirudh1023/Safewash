@@ -14,7 +14,8 @@ import {
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import Image, { ImageProps } from "next/image";
+import Image, { ImageProps, StaticImageData } from "next/image";
+import { useOutsideClick } from "@/components/ui/use-outside-click";
 
 interface CarouselProps {
   items: JSX.Element[];
@@ -22,16 +23,19 @@ interface CarouselProps {
 }
 
 type Card = {
-  src: string;
+  src: string | StaticImageData; // Modified to accept both URL strings and imported images
   title: string;
   category: string;
   content: React.ReactNode;
 };
 
-const CarouselContext = createContext<{
+export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
   currentIndex: number;
-}>({ onCardClose: () => {}, currentIndex: 0 });
+}>({
+  onCardClose: () => {},
+  currentIndex: 0,
+});
 
 export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
@@ -87,7 +91,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     <CarouselContext.Provider
       value={{ onCardClose: handleCardClose, currentIndex }}
     >
-      <div className="relative w-full z-50 py-5">
+      <div className="relative w-full">
         <div
           className="flex w-full overflow-x-scroll overscroll-x-auto py-10 md:py-20 scroll-smooth [scrollbar-width:none]"
           ref={carouselRef}
@@ -95,13 +99,14 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         >
           <div
             className={cn(
-              "absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l"
+              "absolute right-0  z-[1000] h-auto  w-[5%] overflow-hidden bg-gradient-to-l"
             )}
           ></div>
 
           <div
             className={cn(
-              "flex flex-row justify-start gap-4 pl-4 w-full" // Ensure full width
+              "flex flex-row justify-start gap-4 pl-4",
+              "max-w-7xl mx-auto" // remove max-w-4xl if you want the carousel to span the full width of its container
             )}
           >
             {items.map((item, index) => (
@@ -121,7 +126,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   },
                 }}
                 key={"card" + index}
-                className="last:pr-[5%] md:last:pr-[33%] rounded-3xl"
+                className="last:pr-[5%] md:last:pr-[33%]  rounded-3xl"
               >
                 {item}
               </motion.div>
@@ -159,7 +164,7 @@ export const Card = ({
   layout?: boolean;
 }) => {
   const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null!);
   const { onCardClose, currentIndex } = useContext(CarouselContext);
 
   useEffect(() => {
@@ -179,7 +184,7 @@ export const Card = ({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  //   useOutsideClick(containerRef, () => handleClose());
+  useOutsideClick(containerRef, () => handleClose());
 
   const handleOpen = () => {
     setOpen(true);

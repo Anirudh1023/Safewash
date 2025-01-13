@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { WashingMachine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import rack from "./blackwhite-removebg-preview.png";
 

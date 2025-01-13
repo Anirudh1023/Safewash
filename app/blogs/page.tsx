@@ -18,8 +18,6 @@ export default function Blogs() {
       id="blogs"
       className="min-h-screen bg-white dark:bg-neutral-950 pt-10 relative overflow-hidden px-10"
     >
-      {/* Ripple Background */}
-
       {/* Content Layer */}
       <div className="relative z-10 w-full">
         {/* Title in centered container */}

@@ -64,7 +64,7 @@ const SparklesText: React.FC<SparklesTextProps> = ({
   text,
   colors = { first: "#0084b8", second: "#65A006" },
   className,
-  sparklesCount = 10,
+  sparklesCount = 20,
   ...props
 }) => {
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
@@ -132,11 +132,11 @@ const Sparkle: React.FC<Sparkle> = ({ id, x, y, color, delay, scale }) => {
       className="pointer-events-none absolute z-20"
       initial={{ opacity: 0, left: x, top: y }}
       animate={{
-        opacity: [0, 1, 0],
+        opacity: [1, 1, 0],
         scale: [0, scale, 0],
         rotate: [75, 120, 150],
       }}
-      transition={{ duration: 0.8, repeat: Infinity, delay }}
+      transition={{ duration: 1, repeat: Infinity, delay }}
       width="21"
       height="21"
       viewBox="0 0 21 21"

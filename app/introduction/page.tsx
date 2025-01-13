@@ -78,7 +78,7 @@ export default function ImagesSlider() {
           </p>
 
           <div className="flex">
-            <InteractiveHoverButton buttonText="Schedule a pickup" />
+            <InteractiveHoverButton buttonText="Schedule a free pickup" />
           </div>
         </motion.div>
       </div>

@@ -85,19 +85,20 @@ const ContactSection: FC<ContactSectionProps> = () => {
 
           {/* App Store Links */}
           <div className="w-full lg:w-1/3 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-4 pb-4 lg:pb-0 mt-5">
-            {/* App Store Button */}
             <Image
               src={Play}
-              alt="Download on the App Store"
+              alt="Get it on Google Play"
               className="w-[20%] h-auto rounded-xl"
-              layout="intrinsic" // Use intrinsic to maintain aspect ratio while reducing size
+              width={200}
+              height={60}
             />
 
             <Image
               src={Apple}
-              alt="Get it on Google Play"
+              alt="Download on the App Store"
               className="w-[20%] h-auto rounded-xl"
-              layout="intrinsic" // Use intrinsic to maintain aspect ratio while reducing size
+              width={200}
+              height={60}
             />
           </div>
         </div>

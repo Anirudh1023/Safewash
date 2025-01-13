@@ -10,8 +10,6 @@ import Testimonials from "./testimonials/page";
 import Blogs from "./blogs/page";
 import Contact from "./footer/contact";
 import Pricing from "./pricing/page";
-import { useEffect } from "react";
-import SmoothScroll from "@/components/ui/SmoothScroll";
 
 export default function Home() {
   return (

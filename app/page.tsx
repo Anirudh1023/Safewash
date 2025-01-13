@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import ImagesSlider from "./introduction/page";
 import About from "./about-us/page";
 import Footer from "./footer/page";
-import { Services } from "./services/page";
+import Services from "./services/page";
 import Process from "./our-process/page";
 import Testimonials from "./testimonials/page";
 import Blogs from "./blogs/page";

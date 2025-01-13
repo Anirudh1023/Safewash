@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect} from "react";
 import { Compare } from "./compare";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useMemo, useState } from "react";

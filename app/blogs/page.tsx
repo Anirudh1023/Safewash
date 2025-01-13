@@ -39,38 +39,17 @@ export default function Blogs() {
   );
 }
 
-// Rest of your existing components remain the same
-const BlogContent = ({
-  title,
-  content,
-}: {
-  title: string;
-  content: string;
-}) => {
-  return (
-    <div className="prose dark:prose-invert max-w-none">
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
-      <div className="space-y-4">
-        {content.split("\n\n").map((paragraph, idx) => (
-          <p key={idx} className="text-gray-600 dark:text-gray-300">
-            {paragraph}
-          </p>
-        ))}
-      </div>
-    </div>
-  );
-};
-
 const BlogPost1 = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="prose prose-lg text-gray-700">
         <p>
           When it comes to caring for your clothes, you might have wondered:
-          what's the difference between laundry and dry cleaning? Although both
-          processes are designed to clean garments, they differ significantly in
-          terms of methods, benefits, and ideal applications. Let's break it
-          down so you can make the best choice for your wardrobe.
+          what&apos;s the difference between laundry and dry cleaning? Although
+          both processes are designed to clean garments, they differ
+          significantly in terms of methods, benefits, and ideal applications.
+          Let&apos;s break it down so you can make the best choice for your
+          wardrobe.
         </p>
 
         <h2 className="text-2xl font-semibold text-gray-800 mt-6 mb-2">
@@ -126,9 +105,9 @@ const BlogPost1 = () => {
         </h2>
         <p>
           Dry cleaning uses a solvent instead of water to clean clothes. The
-          most common solvent used is perchloroethylene (or "perc"), though
-          eco-friendly alternatives are also available. The dry cleaning process
-          involves:
+          most common solvent used is perchloroethylene (or &quot;perc&quot;),
+          though eco-friendly alternatives are also available. The dry cleaning
+          process involves:
         </p>
 
         <ul className="list-inside list-disc mb-4">
@@ -221,8 +200,8 @@ const BlogPost2 = () => {
           your delicate and high-quality garments. However, despite its
           importance, many misconceptions about dry cleaning persist. These
           myths often discourage people from using the service or lead to
-          unrealistic expectations. Let's debunk four common dry cleaning myths
-          and uncover the truth.
+          unrealistic expectations. Let&apos;s debunk four common dry cleaning
+          myths and uncover the truth.
         </p>
 
         <h2 className="text-2xl font-semibold text-gray-800 mt-6 mb-2">
@@ -241,21 +220,21 @@ const BlogPost2 = () => {
           Myth 2: Dry Cleaning is Only for Fancy Clothes
         </h2>
         <p>
-          While it's true that dry cleaning is ideal for delicate fabrics like
-          silk, wool, and cashmere, it's not just for high-end or formal attire.
-          Everyday items such as workwear, coats, and even household textiles
-          like curtains can benefit from dry cleaning. If your garments have
-          tough stains, are made from sensitive materials, or require
-          professional care, dry cleaning is a practical solution.
+          While it&apos;s true that dry cleaning is ideal for delicate fabrics
+          like silk, wool, and cashmere, it&apos;s not just for high-end or
+          formal attire. Everyday items such as workwear, coats, and even
+          household textiles like curtains can benefit from dry cleaning. If
+          your garments have tough stains, are made from sensitive materials, or
+          require professional care, dry cleaning is a practical solution.
         </p>
 
         <h2 className="text-2xl font-semibold text-gray-800 mt-6 mb-2">
           Myth 3: All Stains Can Be Removed by Dry Cleaning
         </h2>
         <p>
-          Although dry cleaning is effective for many types of stains, it's not
-          a magic fix for every stain. The success of stain removal depends on
-          several factors, including the type of stain, the fabric, and how
+          Although dry cleaning is effective for many types of stains, it&apos;s
+          not a magic fix for every stain. The success of stain removal depends
+          on several factors, including the type of stain, the fabric, and how
           quickly the stain is treated. For example, some water-based stains may
           require pre-treatment, while older or set-in stains may be harder to
           remove. Professional cleaners do their best, but timely attention to
@@ -267,12 +246,12 @@ const BlogPost2 = () => {
         </h2>
         <p>
           Traditional dry cleaning uses a solvent called perchloroethylene
-          ("perc"), which some people believe is harsh on fabrics. However, when
-          handled professionally, perc is safe and effective. Additionally, many
-          modern dry cleaners now offer eco-friendly alternatives, such as
-          hydrocarbon or liquid CO2 cleaning, which are gentle on clothes and
-          better for the environment. Always ask your cleaner about the methods
-          they use if you're concerned.
+          (&quot;perc&quot;), which some people believe is harsh on fabrics.
+          However, when handled professionally, perc is safe and effective.
+          Additionally, many modern dry cleaners now offer eco-friendly
+          alternatives, such as hydrocarbon or liquid CO2 cleaning, which are
+          gentle on clothes and better for the environment. Always ask your
+          cleaner about the methods they use if you&apos;re concerned.
         </p>
 
         <h2 className="text-2xl font-semibold text-gray-800 mt-6 mb-2">
@@ -288,7 +267,7 @@ const BlogPost2 = () => {
         </p>
 
         <p className="mt-6">
-          At Safewash, we're here to answer your questions and provide
+          At Safewash, we&apos;re here to answer your questions and provide
           professional, high-quality dry cleaning services. Contact us today to
           learn more or experience the difference for yourself!
         </p>
@@ -314,11 +293,11 @@ const BlogPost3 = () => {
           when it comes to cleaning routines. Regular maintenance of these items
           is essential not just for their longevity but also for maintaining a
           healthy living environment. So, how often should you clean your
-          curtains and carpets? Let's break it down.
+          curtains and carpets? Let&apos;s break it down.
         </p>
 
         <h2 className="text-2xl font-semibold text-gray-800 mt-6 mb-2">
-          Curtains: A Dust Magnet You Shouldn't Ignore
+          Curtains: A Dust Magnet You Shouldn&apos;t Ignore
         </h2>
         <p>
           Curtains can accumulate dust, allergens, and even odors over time.
@@ -352,8 +331,8 @@ const BlogPost3 = () => {
         </h2>
         <p>
           Carpets endure a lot of wear and tear, from muddy shoes to accidental
-          spills. They're also home to dust mites, bacteria, and allergens if
-          not cleaned regularly.
+          spills. They&apos;re also home to dust mites, bacteria, and allergens
+          if not cleaned regularly.
         </p>
 
         <h3 className="text-xl font-semibold text-gray-800 mt-4 mb-2">
@@ -370,9 +349,9 @@ const BlogPost3 = () => {
             immediately to prevent them from setting in.
           </li>
           <li>
-            <strong>Professional Cleaning:</strong> It's recommended to have
-            your carpets professionally cleaned every 12-18 months. Homes with
-            pets, young children, or allergy sufferers may require cleaning
+            <strong>Professional Cleaning:</strong> It&apos;s recommended to
+            have your carpets professionally cleaned every 12-18 months. Homes
+            with pets, young children, or allergy sufferers may require cleaning
             every 6-12 months.
           </li>
         </ul>
@@ -423,9 +402,9 @@ const BlogPost3 = () => {
         <p className="mt-6">
           Curtains and carpets are often overlooked but essential parts of home
           maintenance. By following these cleaning guidelines, you can keep them
-          looking fresh and ensure a healthier home environment. If it's been a
-          while since your last deep clean, now is the perfect time to schedule
-          a professional service.
+          looking fresh and ensure a healthier home environment. If it&apos;s
+          been a while since your last deep clean, now is the perfect time to
+          schedule a professional service.
         </p>
 
         <p className="mt-6">
@@ -537,58 +516,36 @@ const BlogPost4 = () => {
         <strong>Safewash Drycleaners</strong>.
       </p>
 
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">
-        Leather Bags and Shoes
-      </h3>
+      <h3 className="text-xl font-semibold text-gray-800 mb-2">Leather Bags</h3>
       <p className="text-gray-700 mb-4">
-        Stuff bags with paper while cleaning to maintain their shape. Use a soft
-        brush for cleaning leather shoes, especially in hard-to-reach areas.
+        Avoid overloading your leather bag to maintain its shape. Clean it
+        regularly and store it in a dust bag to protect it from scratches.
       </p>
 
       <h3 className="text-xl font-semibold text-gray-800 mb-2">
-        Leather Furniture
+        Leather Shoes
       </h3>
       <p className="text-gray-700 mb-6">
-        Vacuum with a soft brush attachment before cleaning. Wipe spills
-        immediately to prevent staining.
+        Clean your leather shoes after each wear to remove dirt and moisture.
+        Use shoe trees to maintain their shape, and polish them regularly for a
+        sleek appearance.
       </p>
 
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        How to Protect Leather from Hyderabad’s Climate
-      </h2>
-      <ul className="list-disc list-inside text-gray-700 mb-6">
-        <li>
-          <strong>Keep It Dry:</strong> Use a leather protectant spray to shield
-          against humidity and water.
-        </li>
-        <li>
-          <strong>Avoid Sun Exposure:</strong> Direct sunlight can fade and dry
-          out leather.
-        </li>
-        <li>
-          <strong>Store Properly:</strong> Store leather items in a cool,
-          ventilated space using breathable covers.
-        </li>
-      </ul>
-
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        Why Choose Safewash Drycleaners in Hyderabad?
+        When to Seek Professional Help
       </h2>
       <p className="text-gray-700 mb-6">
-        At <strong>Safewash Drycleaners</strong>, we offer specialized cleaning
-        services for all types of leather garments and accessories. Our expert
-        team uses safe, effective techniques to restore and maintain your
-        leather items.
+        For heavily soiled or delicate leather items, professional cleaning is
+        recommended. <strong>Safewash Drycleaners</strong> offers expert leather
+        care services in Hyderabad, ensuring your leather stays in top
+        condition.
       </p>
 
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        Call to Action
-      </h2>
       <p className="text-gray-700 mb-6">
-        Don’t let dirt and stains ruin your leather! Visit{" "}
-        <strong>Safewash Drycleaners in Hyderabad</strong> for professional
-        cleaning and maintenance services. Contact us today to keep your leather
-        looking as good as new.
+        Regular cleaning and maintenance can significantly extend the life of
+        your leather items. By following these steps, you can keep your leather
+        looking luxurious and well-kept. For professional leather cleaning,
+        contact <strong>Safewash Drycleaners</strong> today.
       </p>
       <div className="mt-8">
         <InteractiveHoverButton buttonText="Schedule a free pickup" />
@@ -753,22 +710,16 @@ const BlogPost5 = () => {
 const BlogPost6 = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
-      <header className="text-center mb-12">
-        <p className="text-xl text-gray-600 mt-4">
-          From Safewash Drycleaners in Hyderabad
-        </p>
-      </header>
-
       <section className="mb-12">
         <h2 className="text-2xl font-semibold text-gray-800">
           Why Leather Jacket Care is Important
         </h2>
         <p className="text-lg text-gray-700 mt-4">
           Leather is a natural material that can dry out, crack, or fade if
-          neglected. With Hyderabad's varying weather conditions, from scorching
-          heat to humid monsoons, maintaining your leather jacket becomes even
-          more crucial. Follow these essential tips to protect your prized
-          possession.
+          neglected. With Hyderabad&apos;s varying weather conditions, from
+          scorching heat to humid monsoons, maintaining your leather jacket
+          becomes even more crucial. Follow these essential tips to protect your
+          prized possession.
         </p>
       </section>
 
@@ -804,110 +755,51 @@ const BlogPost6 = () => {
         </h3>
         <p className="text-lg text-gray-700 mt-4">
           Leather needs conditioning to retain its softness and prevent
-          cracking. Apply a high-quality leather conditioner every 3-6 months:
+          cracking. Use a good leather conditioner to keep the jacket supple.
         </p>
         <ul className="list-disc ml-6 text-lg text-gray-700 mt-2">
           <li>
-            Use a clean, soft cloth to apply a small amount of conditioner in
-            circular motions.
+            Apply conditioner using a soft cloth and massage it gently into the
+            leather.
           </li>
-          <li>Let it absorb fully before buffing it with a dry cloth.</li>
+          <li>
+            Allow it to soak in for at least 30 minutes before wiping off the
+            excess.
+          </li>
+          <li>Conditioning once every 2-3 months should be sufficient.</li>
         </ul>
       </section>
 
       <section className="mb-12">
         <h3 className="text-2xl font-semibold text-gray-800">
-          3. Store Your Jacket Properly
+          3. Store Properly to Maintain Shape
         </h3>
+        <p className="text-lg text-gray-700 mt-4">
+          Avoid hanging your leather jacket on a thin wire hanger, as it can
+          distort the shape. Instead, use a wide, padded hanger to maintain its
+          form. If you’re storing it long-term, place it in a breathable garment
+          bag, away from direct sunlight and heat.
+        </p>
+      </section>
+
+      <section className="mb-12">
+        <h3 className="text-2xl font-semibold text-gray-800">
+          4. Remove Stains Carefully
+        </h3>
+        <p className="text-lg text-gray-700 mt-4">
+          Spills or stains can ruin the appearance of your leather jacket.
+          Here’s how to remove them:
+        </p>
         <ul className="list-disc ml-6 text-lg text-gray-700 mt-2">
           <li>
-            <strong>Hang It Right:</strong> Use a padded hanger to maintain the
-            jacket's shape.
+            For oil or grease stains, sprinkle baking soda on the area and let
+            it sit for a few hours before wiping off.
           </li>
           <li>
-            <strong>Avoid Direct Sunlight:</strong> Prolonged exposure can fade
-            the leather.
-          </li>
-          <li>
-            <strong>Use a Breathable Cover:</strong> Store your jacket in a
-            fabric garment bag to prevent dust buildup while allowing air
-            circulation.
+            For ink stains, gently dab with a cotton swab soaked in rubbing
+            alcohol, being careful not to rub.
           </li>
         </ul>
-      </section>
-
-      <section className="mb-12">
-        <h3 className="text-2xl font-semibold text-gray-800">
-          4. Protect Against Hyderabad’s Weather
-        </h3>
-        <p className="text-lg text-gray-700 mt-4">
-          Leather is not waterproof, so avoid wearing your jacket in heavy rain.
-          Use a leather protectant spray to add water resistance:
-        </p>
-        <ol className="list-decimal ml-6 text-lg text-gray-700 mt-2">
-          <li>Spray evenly before wearing.</li>
-          <li>Reapply periodically, especially during monsoon season.</li>
-        </ol>
-      </section>
-
-      <section className="mb-12">
-        <h3 className="text-2xl font-semibold text-gray-800">
-          5. Handle Stains Promptly
-        </h3>
-        <h4 className="text-xl font-semibold text-gray-800 mt-4">
-          Oil or Grease Stains
-        </h4>
-        <p className="text-lg text-gray-700 mt-2">
-          Sprinkle cornstarch or baking soda on the stain and let it sit
-          overnight. Brush it off gently in the morning.
-        </p>
-        <h4 className="text-xl font-semibold text-gray-800 mt-4">Ink Stains</h4>
-        <p className="text-lg text-gray-700 mt-2">
-          Dab with a cotton swab soaked in rubbing alcohol, but always test on
-          an inconspicuous area first.
-        </p>
-        <p className="mt-4 text-lg text-gray-700">
-          For stubborn stains, trust <strong>Safewash Drycleaners</strong> to
-          restore your jacket safely.
-        </p>
-      </section>
-
-      <section className="mb-12">
-        <h3 className="text-2xl font-semibold text-gray-800">
-          6. Avoid Heat and Harsh Chemicals
-        </h3>
-        <ul className="list-disc ml-6 text-lg text-gray-700 mt-2">
-          <li>
-            Never use direct heat (e.g., blow dryers) to dry wet leather.
-            Instead, blot with a towel and let it air dry.
-          </li>
-          <li>
-            Avoid using alcohol-based cleaners or household detergents, as they
-            can strip the leather's natural oils.
-          </li>
-        </ul>
-      </section>
-
-      <section className="mb-12">
-        <h3 className="text-2xl font-semibold text-gray-800">
-          7. Rotate Usage
-        </h3>
-        <p className="text-lg text-gray-700 mt-4">
-          Wearing your jacket daily can lead to uneven wear and tear. Rotate it
-          with other outerwear to give it a break.
-        </p>
-      </section>
-
-      <section className="mb-12">
-        <h3 className="text-2xl font-semibold text-gray-800">
-          8. Opt for Professional Cleaning Services
-        </h3>
-        <p className="text-lg text-gray-700 mt-4">
-          For deep cleaning or repairs, rely on a professional leather cleaning
-          service like <strong>Safewash Drycleaners in Hyderabad</strong>. Our
-          specialists use safe techniques to clean, condition, and preserve your
-          jacket.
-        </p>
       </section>
 
       <section className="mt-12">
@@ -915,25 +807,23 @@ const BlogPost6 = () => {
           Why Choose Safewash Drycleaners in Hyderabad?
         </h2>
         <p className="text-lg text-gray-700 mt-4">
-          At <strong>Safewash Drycleaners</strong>, we specialize in handling
-          delicate and high-end fabrics, including leather. Our team uses
-          advanced cleaning methods tailored to your garments' needs, ensuring
-          your leather jacket remains spotless and well-maintained.
+          At <strong>Safewash Drycleaners</strong>, we understand the care your
+          leather jacket needs. Our experienced professionals use gentle,
+          effective methods to clean, condition, and preserve the quality of
+          your jacket. Whether it&apos;s a routine cleaning or a special
+          treatment, we ensure your leather remains in top condition for years
+          to come.
+        </p>
+        <p className="text-lg text-gray-700 mt-4">
+          Don’t wait for wear and tear to take its toll. Contact{" "}
+          <strong>Safewash Drycleaners</strong> today for all your leather care
+          needs.
         </p>
       </section>
 
-      <section className="mt-12">
-        <h3 className="text-xl font-semibold text-gray-800">Call to Action</h3>
-        <p className="text-lg text-gray-700 mt-4">
-          Don’t let dirt or damage ruin your leather jacket! Visit{" "}
-          <strong>Safewash Drycleaners in Hyderabad</strong> for professional
-          cleaning and expert advice. Contact us today to keep your leather
-          garments in top condition.
-        </p>
-        <div className="mt-8">
-          <InteractiveHoverButton buttonText="Schedule a free pickup" />
-        </div>
-      </section>
+      <div className="mt-8">
+        <InteractiveHoverButton buttonText="Schedule a free pickup" />
+      </div>
     </div>
   );
 };

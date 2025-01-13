@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalTrigger,
-} from "./animated-modal";
+import { Modal, ModalBody, ModalContent, ModalTrigger } from "./animated-modal";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { DollarSign } from "lucide-react";
@@ -23,7 +17,7 @@ export default function PricingModal() {
         <div className="flex flex-col items-center justify-center text-center px-4">
           <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-4">
             Experience premium dry cleaning and laundry services at prices
-            you'll love!
+            you&apos;ll love!
             <br />
             Click below to know more.
           </h3>

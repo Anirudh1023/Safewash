@@ -95,9 +95,9 @@ const policies: Record<PolicyType, PolicyContent> = {
             charges.
           </li>
           <li className="pl-2">
-            We follow a "No claim" policy. All articles are accepted at
-            customer's risk. We shall not be held responsible for damage to
-            garments that cannot withstand the normal cleaning process due to
+            We follow a &quot;No claim&quot; policy. All articles are accepted
+            at customer&apos;s risk. We shall not be held responsible for damage
+            to garments that cannot withstand the normal cleaning process due to
             age / quality of garments.
           </li>
           <li className="pl-2">
@@ -119,16 +119,16 @@ const policies: Record<PolicyType, PolicyContent> = {
         <div className="space-y-4">
           <p>
             We strive to provide the highest quality dry cleaning services.
-            However, if you're not satisfied with our service, please note the
-            following policy:
+            However, if you&apos;re not satisfied with our service, please note
+            the following policy:
           </p>
           <ol className="list-decimal space-y-4 ml-4">
             <li className="pl-2">
               All complaints must be reported within 24 hours of garment pickup.
             </li>
             <li className="pl-2">
-              Refunds or reprocessing will be offered for services that don't
-              meet our quality standards.
+              Refunds or reprocessing will be offered for services that
+              don&apos;t meet our quality standards.
             </li>
             <li className="pl-2">
               The garment must be returned unworn and in the same condition as

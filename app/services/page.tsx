@@ -20,7 +20,7 @@ interface ServiceContent {
   icon: string;
 }
 
-export function Services() {
+export default function Services() {
   const timelineData: ServiceContent[] = [
     {
       title: "LAUNDRY",
@@ -137,7 +137,7 @@ export function Services() {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-500 dark:text-neutral-500 mb-12">
               Our Services
             </h1>
-            <p className="text-neutral-700 dark:text-neutral-300 text-xl md:text-2xl lg:text-3xl max-w-4xl mb-24">
+            <p className="text-neutral-700 dark:text-neutral-300 text-xl md:text-2xl lg:text-3xl max-w-4xl mb-2">
               Experience premium care for all your garments and home furnishings
               with our comprehensive cleaning services.
             </p>

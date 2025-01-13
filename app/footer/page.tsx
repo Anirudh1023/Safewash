@@ -3,9 +3,7 @@
 import { FC } from "react";
 import Link from "next/link";
 
-interface FooterProps {}
-
-const Footer: FC<FooterProps> = () => {
+const Footer: FC = () => {
   return (
     <footer className="bg-gray-100 py-4 sm:py-6 border-t relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col items-center">

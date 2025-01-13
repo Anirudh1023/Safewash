@@ -6,17 +6,15 @@ import Image from "next/image";
 import Play from "./Finalgoogle.png";
 import Apple from "./Finalapple.png";
 
-interface ContactSectionProps {}
-
-const ContactSection: FC<ContactSectionProps> = () => {
+const ContactSection: FC = () => {
   return (
     <footer className="bg-gray-700 text-white py-4 sm:py-6 md:py-8 relative">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-6 md:gap-8">
           {/* Address Section */}
           <div className="w-full lg:w-1/3 space-y-3 md:space-y-4 text-center lg:text-left pl-3">
-            <h1 className="text-xl sm:text-2xl font-bold">
-              SafeWash DryCleaners
+            <h1 className="text-xl sm:text-2xl font-semibold">
+              Safewash Dry Cleaners
             </h1>
             <p className="text-gray-300 text-sm sm:text-base">
               A Unit of Safewash Cleaning Solutions

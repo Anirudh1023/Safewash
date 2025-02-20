@@ -7,7 +7,7 @@ import Image2 from "@/public/assets/two.jpg";
 import Image3 from "@/public/assets/three.jpg";
 import Image4 from "@/public/assets/four.jpg";
 import Image5 from "@/public/assets/five.jpg";
-import bg from "@/public/assets/safewashbg.jpeg";
+import bg from "@/public/assets/safewashFinal.png";
 import InteractiveHoverButton from "@/components/ui/interactive-hover-button";
 import SparklesText from "@/components/ui/sparkles-text";
 

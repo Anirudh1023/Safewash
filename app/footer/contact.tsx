@@ -32,10 +32,10 @@ const ContactSection: FC = () => {
               GST: 36AEHFS7200R1ZH
               <br className="hidden sm:block" />
               <span className="block sm:hidden my-1" />
-              Address: 12-6-23/6/4, Opp. Kukatpally Bus Depot,
+              Address: Phase-1, IDA, Patancheru
               <br className="hidden sm:block" />
               <span className="block sm:hidden my-1" />
-              Moosapet, Hyderabad - 500081.
+              Telangana - 502319.
             </p>
             <p className="text-gray-300 text-sm sm:text-base">
               Phone:{" "}
@@ -44,13 +44,6 @@ const ContactSection: FC = () => {
                 className="hover:text-blue-400 transition-colors"
               >
                 8121999111
-              </a>
-              ,
-              <a
-                href="tel:9705678679"
-                className="hover:text-blue-400 transition-colors"
-              >
-                9705678679
               </a>
               <br />
               Email:{" "}

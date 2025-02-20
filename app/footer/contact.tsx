@@ -4,6 +4,7 @@ import { FC } from "react";
 import Image from "next/image";
 import Play from "./Finalgoogle.png";
 import Apple from "./Finalapple.png";
+import Logo from "./LOGO.png";
 
 const ContactSection: FC = () => {
   return (
@@ -15,7 +16,7 @@ const ContactSection: FC = () => {
         <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-6 md:gap-8">
           {/* Address Section */}
           <Image
-            src={Apple}
+            src={Logo}
             alt="Logo"
             className="w-[20%] h-auto rounded-xl"
             width={200}

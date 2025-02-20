@@ -22,7 +22,7 @@ const Navbar = () => {
     { name: "Services", path: "#services" },
     { name: "Blogs", path: "#blogs" },
     { name: "Pricing", path: "#pricing" },
-    { name: "Policies", path: "/policies" },
+    { name: "Contact", path: "#contact" },
   ];
 
   const handleScrollToSection = (id: string) => {

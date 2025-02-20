@@ -45,7 +45,6 @@ body {
   /* Add any specific positioning you need */
 }
 
-
 @font-face {
   font-family: "Rubik";
   src: url("/assets/fonts/Rubik-Regular.ttf") format("truetype");
@@ -169,7 +168,8 @@ body {
 }
 
 @keyframes bouncy-scroll {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -181,5 +181,22 @@ body {
   animation: bouncy-scroll 1s ease-in-out infinite;
 }
 
+.magnifier {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid white;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
 
-
+.magnifier img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -7,19 +7,31 @@ import Image2 from "@/public/assets/two.jpg";
 import Image3 from "@/public/assets/three.jpg";
 import Image4 from "@/public/assets/four.jpg";
 import Image5 from "@/public/assets/five.jpg";
+import bg from "@/public/assets/safewashbg.jpeg";
 import InteractiveHoverButton from "@/components/ui/interactive-hover-button";
 import SparklesText from "@/components/ui/sparkles-text";
 
 export default function ImagesSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
-  const images = [Image1.src, Image2.src, Image3.src, Image4.src, Image5.src];
+  const images = [
+    Image1.src,
+    bg.src,
+    Image2.src,
+    bg.src,
+    Image3.src,
+    bg.src,
+    Image4.src,
+    bg.src,
+    Image5.src,
+    bg.src,
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setPreviousIndex(currentIndex);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 6000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [currentIndex, images.length]);
 
@@ -48,8 +60,8 @@ export default function ImagesSlider() {
             x: "0%",
             scale: 1,
             transition: {
-              x: { duration: 3, ease: [0.4, 0, 0.2, 1] },
-              scale: { duration: 3, ease: [0.4, 0, 0.2, 1] },
+              x: { duration: 2, ease: [0.4, 0, 0.2, 1] },
+              scale: { duration: 2, ease: [0.4, 0, 0.2, 1] },
             },
           }}
           style={{
@@ -66,7 +78,7 @@ export default function ImagesSlider() {
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
           className="space-y-3"
         >
           <motion.div className="text-6xl md:text-6xl text-left bg-clip-text font-semibold text-white dark:text-white bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">

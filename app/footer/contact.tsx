@@ -1,17 +1,26 @@
 "use client";
 
 import { FC } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import Play from "./Finalgoogle.png";
 import Apple from "./Finalapple.png";
 
 const ContactSection: FC = () => {
   return (
-    <footer className="bg-gray-700 text-white py-4 sm:py-6 md:py-8 relative">
+    <footer
+      id="contact"
+      className="bg-gray-700 text-white py-4 sm:py-6 md:py-8 relative"
+    >
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-6 md:gap-8">
           {/* Address Section */}
+          <Image
+            src={Apple}
+            alt="Logo"
+            className="w-[20%] h-auto rounded-xl"
+            width={200}
+            height={60}
+          />
           <div className="w-full lg:w-1/3 space-y-3 md:space-y-4 text-center lg:text-left pl-3">
             <h1 className="text-xl sm:text-2xl font-semibold">
               Safewash Dry Cleaners
@@ -54,32 +63,6 @@ const ContactSection: FC = () => {
           </div>
 
           {/* Navigation Links */}
-          <nav className="w-full lg:w-1/3 flex flex-col items-center space-y-2 sm:space-y-3 py-4 lg:py-0 mt-4">
-            <Link
-              href="/"
-              className="text-sm sm:text-base hover:text-blue-400 transition-colors px-4 py-1 rounded-md hover:bg-gray-700"
-            >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm sm:text-base hover:text-blue-400 transition-colors px-4 py-1 rounded-md hover:bg-gray-700"
-            >
-              About
-            </Link>
-            <Link
-              href="/services"
-              className="text-sm sm:text-base hover:text-blue-400 transition-colors px-4 py-1 rounded-md hover:bg-gray-700"
-            >
-              Services
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm sm:text-base hover:text-blue-400 transition-colors px-4 py-1 rounded-md hover:bg-gray-700"
-            >
-              Contact
-            </Link>
-          </nav>
 
           {/* App Store Links */}
           <div className="w-full lg:w-1/3 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-4 pb-4 lg:pb-0 mt-5">

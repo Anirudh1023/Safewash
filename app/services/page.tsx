@@ -135,7 +135,7 @@ export default function Services() {
         <div className="w-full min-h-[80vh] p-8 md:p-16 lg:p-24">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-500 dark:text-neutral-500 mb-12">
-              Our Services
+              OUR SERVICES
             </h1>
             <p className="text-neutral-700 dark:text-neutral-300 text-xl md:text-2xl lg:text-3xl max-w-4xl mb-2">
               Experience premium care for all your garments and home furnishings

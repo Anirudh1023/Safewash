@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { Modal, ModalBody, ModalContent, ModalTrigger } from "./animated-modal";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { DollarSign } from "lucide-react";
 import Price from "./Pricing.jpeg";
 import InteractiveHoverButton from "@/components/ui/interactive-hover-button";
+import FullscreenImage from "./magnifying-image"; // Add this import
 
 export default function PricingModal() {
   return (
@@ -45,16 +45,8 @@ export default function PricingModal() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
-              className="relative w-full min-h-[300px] md:min-h-[400px] lg:min-h-[500px] rounded-lg overflow-hidden"
             >
-              <Image
-                src={Price}
-                alt="pricing plans"
-                fill
-                className="object-contain"
-                priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 85vw"
-              />
+              <FullscreenImage src={Price.src} alt="pricing plans" />
             </motion.div>
 
             <div className="mt-6 flex flex-wrap gap-4 items-start justify-center">

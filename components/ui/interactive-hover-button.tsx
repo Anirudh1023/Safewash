@@ -1,35 +1,25 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Phone, Download } from "lucide-react";
 import { Input } from "./Input";
 import { cn } from "@/lib/utils";
 
-interface AuthModalWithButtonProps {
+interface CallModalWithButtonProps {
   buttonText?: string;
   className?: string;
+  phoneNumber?: string;
 }
 
-const AuthModalWithButton = ({
-  buttonText = "Sign In / Sign Up",
+const CallModalWithButton = ({
+  buttonText = "Contact Us",
   className,
-}: AuthModalWithButtonProps) => {
+  phoneNumber = "+91 8121999111",
+}: CallModalWithButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    // Add your signup logic here
-    setTimeout(() => setIsLoading(false), 1000);
-  };
-
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    // Add your signin logic here
-    setTimeout(() => setIsLoading(false), 1000);
+  const handleCallClick = () => {
+    window.location.href = `tel:${phoneNumber.replace(/[^0-9+]/g, "")}`;
   };
 
   return (
@@ -37,7 +27,7 @@ const AuthModalWithButton = ({
       <button
         onClick={() => setIsOpen(true)}
         className={cn(
-          "group relative w-60 md:w-72 cursor-pointer overflow-hidden border rounded-full  bg-background p-2 md:p-4 text-center font-semibold transition-colors duration-300 hover:bg-[#0084b8]",
+          "group relative w-60 md:w-72 cursor-pointer overflow-hidden border rounded-full bg-background p-2 md:p-4 text-center font-semibold transition-colors duration-300 hover:bg-[#0084b8]",
           className
         )}
       >
@@ -82,115 +72,46 @@ const AuthModalWithButton = ({
 
             {/* Header */}
             <h2 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
-              Welcome
+              Contact Us
             </h2>
 
-            {/* Tab buttons */}
-            <div className="flex mb-6 space-x-2">
+            {/* Call Section */}
+            <div className="mb-8 text-center">
+              <div className="flex justify-center mb-4">
+                <Phone size={48} className="text-[#0084b8]" />
+              </div>
+              <p className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-2">
+                Call us for immediate assistance
+              </p>
+              <p className="text-xl font-bold text-[#0084b8] mb-4">
+                {phoneNumber}
+              </p>
               <button
-                onClick={() => setIsSignIn(true)}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isSignIn
-                    ? "bg-[#0084b8] text-white"
-                    : "bg-gray-100 text-gray-700 dark:bg-zinc-800 dark:text-gray-300"
-                }`}
+                onClick={handleCallClick}
+                className="w-full py-3 px-4 bg-[#0084b8] hover:bg-[#006a94] text-white rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
               >
-                Sign In
-              </button>
-              <button
-                onClick={() => setIsSignIn(false)}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  !isSignIn
-                    ? "bg-[#0084b8] text-white"
-                    : "bg-gray-100 text-gray-700 dark:bg-zinc-800 dark:text-gray-300"
-                }`}
-              >
-                Sign Up
+                <Phone size={20} />
+                <span>Call Now</span>
               </button>
             </div>
 
-            {/* Forms */}
-            {isSignIn ? (
-              <form onSubmit={handleSignIn} className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Phone Number
-                  </label>
-                  <Input
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Password
-                  </label>
-                  <Input
-                    type="password"
-                    placeholder="Enter your password"
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full py-2 px-4 bg-[#0084b8] hover:bg-[#006a94] text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  {isLoading ? "Loading..." : "Sign In"}
+            {/* Download App Section */}
+            <div className="text-center">
+              <div className="flex justify-center mb-4">
+                <Download size={48} className="text-[#0084b8]" />
+              </div>
+              <p className="text-lg font-medium text-gray-800 dark:text-gray-200 mb-4">
+                Download our app for personalized orders
+              </p>
+              <div className="flex gap-4 justify-center">
+                <button className="flex-1 py-3 px-2 bg-black text-white rounded-lg font-medium transition-colors hover:bg-gray-800">
+                  App Store
                 </button>
-              </form>
-            ) : (
-              <form onSubmit={handleSignUp} className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Full Name
-                  </label>
-                  <Input
-                    type="text"
-                    placeholder="Enter your full name"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Phone Number
-                  </label>
-                  <Input
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Password
-                  </label>
-                  <Input
-                    type="password"
-                    placeholder="Create a password"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Address
-                  </label>
-                  <Input
-                    type="text"
-                    placeholder="Enter your address"
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full py-2 px-4 bg-[#0084b8] hover:bg-[#006a94] text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  {isLoading ? "Loading..." : "Sign Up"}
+                <button className="flex-1 py-3 px-2 bg-[#0084b8] hover:bg-[#006a94] text-white rounded-lg font-medium transition-colors">
+                  Google Play
                 </button>
-              </form>
-            )}
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -198,4 +119,4 @@ const AuthModalWithButton = ({
   );
 };
 
-export default AuthModalWithButton;
+export default CallModalWithButton;

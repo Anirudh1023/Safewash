@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/ssr": "^0.5.2",
     "@tabler/icons-react": "^3.28.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.17.0",

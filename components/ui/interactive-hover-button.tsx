@@ -1,19 +1,26 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { User, Lock, MapPin, Phone, Home } from "lucide-react";
+import { User, Lock, MapPin, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   useUserManagement,
   UserFormData,
   AddressDetails,
 } from "../useUserManagement";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import SuccessModal from "./SuccessModal";
 
 interface AuthModalWithButtonProps {
   buttonText?: string;
   className?: string;
+}
+
+// Define proper types for search results
+interface SearchResult {
+  place_id: string;
+  display_name: string;
+  lat: string;
+  lon: string;
 }
 
 const AuthModalWithButton = ({
@@ -43,11 +50,10 @@ const AuthModalWithButton = ({
   const [mapVisible, setMapVisible] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
   const { createUserWithAuth, createOrder, loading, error } =
     useUserManagement();
-  const supabase = createClientComponentClient();
 
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -158,7 +164,7 @@ const AuthModalWithButton = ({
   };
 
   // Select address from search results
-  const selectAddress = (result: any) => {
+  const selectAddress = (result: SearchResult) => {
     setAddressDetails({
       ...addressDetails,
       formattedAddress: result.display_name,
@@ -180,7 +186,7 @@ const AuthModalWithButton = ({
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery]);
+  }, [searchQuery, searchAddress]);
 
   // Handle success modal close
   const handleSuccessModalClose = () => {

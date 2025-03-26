@@ -139,7 +139,7 @@ export function useUserManagement() {
       await sendPasswordSMS(phone, password);
 
       return { success: true, error: null };
-    } catch (error: any) {
+    } catch (error) {
       return error;
     }
   };

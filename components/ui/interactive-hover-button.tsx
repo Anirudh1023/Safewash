@@ -151,7 +151,7 @@ const AuthModalWithButton = ({
 
     try {
       const response = await forgotPassword(formData.phoneNumber);
-      if (response.success) {
+      if (response) {
         alert("Success, Your password has been sent to your phone");
       } else {
         alert("Error, Failed to retrieve password");
@@ -212,7 +212,7 @@ const AuthModalWithButton = ({
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { data, error } =
+      const { error } =
         await createUserWithAuth.supabase.auth.signInWithPassword({
           email: `${formData.phoneNumber}@safewash`,
           password: formData.password,
@@ -637,6 +637,3 @@ const AuthModalWithButton = ({
 };
 
 export default AuthModalWithButton;
-function forgotPassword(phone: any) {
-  throw new Error("Function not implemented.");
-}

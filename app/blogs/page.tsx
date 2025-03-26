@@ -180,7 +180,7 @@ const BlogPost1 = () => {
           needs. Contact us today to learn more or schedule a service!
         </p>
         <div className="mt-8">
-          <InteractiveHoverButton buttonText="Schedule a free pickup" />
+          <InteractiveHoverButton buttonText="Schedule a pickup" />
         </div>
       </div>
     </div>
@@ -272,7 +272,7 @@ const BlogPost2 = () => {
           learn more or experience the difference for yourself!
         </p>
         <div className="mt-8">
-          <InteractiveHoverButton buttonText="Schedule a free pickup" />
+          <InteractiveHoverButton buttonText="Schedule a pickup" />
         </div>
       </div>
     </div>
@@ -413,7 +413,7 @@ const BlogPost3 = () => {
           learn more or book a service!
         </p>
         <div className="mt-8">
-          <InteractiveHoverButton buttonText="Schedule a free pickup" />
+          <InteractiveHoverButton buttonText="Schedule a pickup" />
         </div>
       </div>
     </div>
@@ -548,7 +548,7 @@ const BlogPost4 = () => {
         contact <strong>Safewash Drycleaners</strong> today.
       </p>
       <div className="mt-8">
-        <InteractiveHoverButton buttonText="Schedule a free pickup" />
+        <InteractiveHoverButton buttonText="Schedule a pickup" />
       </div>
     </div>
   );
@@ -701,7 +701,7 @@ const BlogPost5 = () => {
         and premium laundry care.
       </p>
       <div className="mt-8">
-        <InteractiveHoverButton buttonText="Schedule a free pickup" />
+        <InteractiveHoverButton buttonText="Schedule a pickup" />
       </div>
     </div>
   );
@@ -822,7 +822,7 @@ const BlogPost6 = () => {
       </section>
 
       <div className="mt-8">
-        <InteractiveHoverButton buttonText="Schedule a free pickup" />
+        <InteractiveHoverButton buttonText="Schedule a pickup" />
       </div>
     </div>
   );

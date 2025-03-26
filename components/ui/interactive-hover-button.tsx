@@ -29,6 +29,7 @@ const AuthModalWithButton = ({
 }: AuthModalWithButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isLoginMode, setIsLoginMode] = useState(false);
   const [formData, setFormData] = useState<UserFormData>({
     name: "",
     phoneNumber: "",
@@ -51,8 +52,9 @@ const AuthModalWithButton = ({
   const [locationLoading, setLocationLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const { createUserWithAuth, createOrder, loading, error } =
+  const { createUserWithAuth, createOrder, forgotPassword, loading, error } =
     useUserManagement();
 
   // Handle form input changes
@@ -68,42 +70,6 @@ const AuthModalWithButton = ({
       ...prev,
       [name]: value,
     }));
-  };
-
-  // Handle sign up
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const result = await createUserWithAuth(formData, "user", addressDetails);
-      if (result.success) {
-        const order = await createOrder(formData.phoneNumber);
-        if (order && order.success !== false) {
-          setIsOpen(false);
-          setIsSuccessModalOpen(true);
-          // Reset form data
-          setFormData({
-            name: "",
-            phoneNumber: "",
-            password: "",
-          });
-          setAddressDetails({
-            formattedAddress: "",
-            coordinates: {
-              latitude: null,
-              longitude: null,
-            },
-            buildingName: "",
-            wing: "",
-            flatNumber: "",
-            floor: "",
-            landmark: "",
-          });
-        }
-      }
-    } catch (err) {
-      console.error("Sign up error:", err);
-      // Error is already handled by the hook
-    }
   };
 
   // Get current location
@@ -177,6 +143,24 @@ const AuthModalWithButton = ({
     setSearchQuery("");
   };
 
+  const handleForgotPassword = async () => {
+    if (!formData.phoneNumber) {
+      alert("Error, Please enter your phone number");
+      return;
+    }
+
+    try {
+      const response = await forgotPassword(formData.phoneNumber);
+      if (response.success) {
+        alert("Success, Your password has been sent to your phone");
+      } else {
+        alert("Error, Failed to retrieve password");
+      }
+    } catch (error) {
+      console.log("Forgot password error:", error);
+    }
+  };
+
   // Effect for address search
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -186,7 +170,84 @@ const AuthModalWithButton = ({
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery, searchAddress]);
+  }, [searchQuery]);
+
+  // Handle sign up
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const result = await createUserWithAuth(formData, "user", addressDetails);
+      if (result.success) {
+        const order = await createOrder(formData.phoneNumber);
+        if (order && order.success !== false) {
+          setIsOpen(false);
+          setSuccessMessage("Order Created Successfully!");
+          setIsSuccessModalOpen(true);
+          // Reset form data
+          setFormData({
+            name: "",
+            phoneNumber: "",
+            password: "",
+          });
+          setAddressDetails({
+            formattedAddress: "",
+            coordinates: {
+              latitude: null,
+              longitude: null,
+            },
+            buildingName: "",
+            wing: "",
+            flatNumber: "",
+            floor: "",
+            landmark: "",
+          });
+        }
+      }
+    } catch (err) {
+      console.error("Sign up error:", err);
+    }
+  };
+
+  // Handle sign in
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const { data, error } =
+        await createUserWithAuth.supabase.auth.signInWithPassword({
+          email: `${formData.phoneNumber}@safewash`,
+          password: formData.password,
+        });
+
+      if (error) throw error;
+
+      // Create order after successful login
+      const order = await createOrder(formData.phoneNumber);
+      if (order && order.success !== false) {
+        setIsOpen(false);
+        setSuccessMessage("Order Created Successfully!");
+        setIsSuccessModalOpen(true);
+        // Reset form data
+        setFormData({
+          name: "",
+          phoneNumber: "",
+          password: "",
+        });
+      }
+    } catch (err) {
+      console.error("Sign in error:", err);
+    }
+  };
+
+  // Toggle between sign up and sign in modes
+  const toggleMode = () => {
+    setIsLoginMode(!isLoginMode);
+    // Reset form data when switching modes
+    setFormData({
+      name: "",
+      phoneNumber: "",
+      password: "",
+    });
+  };
 
   // Handle success modal close
   const handleSuccessModalClose = () => {
@@ -242,11 +303,23 @@ const AuthModalWithButton = ({
 
             {/* Header */}
             <h2 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
-              Create an Account
+              {isLoginMode ? "Sign In" : "Create an Account"}
             </h2>
 
+            {/* Toggle Mode Link */}
+            <div className="text-center mb-4">
+              <button
+                onClick={toggleMode}
+                className="text-sm text-[#0084b8] hover:underline"
+              >
+                {isLoginMode
+                  ? "Don't have an account? Sign Up"
+                  : "Already have an account? Sign In"}
+              </button>
+            </div>
+
             {/* Form */}
-            <form onSubmit={handleSignUp}>
+            <form onSubmit={isLoginMode ? handleSignIn : handleSignUp}>
               {/* Display error from hook if any */}
               {error && (
                 <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
@@ -254,26 +327,28 @@ const AuthModalWithButton = ({
                 </div>
               )}
 
-              {/* Name Input */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Full Name
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400" />
+              {/* Name Input - Only for Sign Up */}
+              {!isLoginMode && (
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Full Name
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <User className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required={!isLoginMode}
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
+                      placeholder="Enter your full name"
+                    />
                   </div>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
-                    placeholder="Enter your full name"
-                  />
                 </div>
-              </div>
+              )}
 
               {/* Phone Input */}
               <div className="mb-4">
@@ -312,7 +387,9 @@ const AuthModalWithButton = ({
                     onChange={handleInputChange}
                     required
                     className="w-full pl-10 pr-10 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
-                    placeholder="Create a password"
+                    placeholder={
+                      isLoginMode ? "Enter your password" : "Create a password"
+                    }
                   />
                   <button
                     type="button"
@@ -360,143 +437,155 @@ const AuthModalWithButton = ({
                 </div>
               </div>
 
-              {/* Address Section */}
-              <div className="mb-4">
-                <div className="flex justify-between items-center">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Address
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => setMapVisible(!mapVisible)}
-                    className="text-sm text-[#0084b8] hover:underline"
-                  >
-                    {mapVisible ? "Hide Map" : "Show Map"}
+              {isLoginMode && (
+                <div className="px-4 mb-2">
+                  <button onClick={handleForgotPassword} className="self-end">
+                    <label className="text-sm text-primary-lightBlue font-rubik">
+                      Forgot Password?
+                    </label>
                   </button>
                 </div>
+              )}
 
-                {/* Location Search */}
-                <div className="mb-3">
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <MapPin className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-10 pr-20 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
-                      placeholder="Search for an address"
-                    />
+              {/* Address Section - Only for Sign Up */}
+              {!isLoginMode && (
+                <div className="mb-4">
+                  <div className="flex justify-between items-center">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      Address
+                    </label>
                     <button
                       type="button"
-                      onClick={getCurrentLocation}
-                      className="absolute inset-y-0 right-0 flex items-center px-3 text-sm text-[#0084b8] hover:text-[#006a94]"
+                      onClick={() => setMapVisible(!mapVisible)}
+                      className="text-sm text-[#0084b8] hover:underline"
                     >
-                      {locationLoading ? "Loading..." : "Current"}
+                      {mapVisible ? "Hide Map" : "Show Map"}
                     </button>
                   </div>
 
-                  {/* Search Results */}
-                  {searchResults.length > 0 && (
-                    <div className="mt-1 max-h-40 overflow-y-auto border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-zinc-800">
-                      {searchResults.map((result) => (
-                        <div
-                          key={result.place_id}
-                          className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-700 cursor-pointer text-sm text-gray-800 dark:text-gray-200"
-                          onClick={() => selectAddress(result)}
-                        >
-                          {result.display_name}
-                        </div>
-                      ))}
+                  {/* Location Search */}
+                  <div className="mb-3">
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <MapPin className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full pl-10 pr-20 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
+                        placeholder="Search for an address"
+                      />
+                      <button
+                        type="button"
+                        onClick={getCurrentLocation}
+                        className="absolute inset-y-0 right-0 flex items-center px-3 text-sm text-[#0084b8] hover:text-[#006a94]"
+                      >
+                        {locationLoading ? "Loading..." : "Current"}
+                      </button>
+                    </div>
+
+                    {/* Search Results */}
+                    {searchResults.length > 0 && (
+                      <div className="mt-1 max-h-40 overflow-y-auto border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-zinc-800">
+                        {searchResults.map((result) => (
+                          <div
+                            key={result.place_id}
+                            className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-700 cursor-pointer text-sm text-gray-800 dark:text-gray-200"
+                            onClick={() => selectAddress(result)}
+                          >
+                            {result.display_name}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Map Visibility Toggle */}
+                  {mapVisible && (
+                    <div className="mb-3 relative h-40 rounded-lg overflow-hidden">
+                      {/* Placeholder for the map - in production you would use a proper map library */}
+                      <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <span className="text-gray-500 dark:text-gray-400">
+                          OpenStreetMap would be displayed here
+                          {addressDetails.coordinates.latitude && (
+                            <div className="text-xs">
+                              Lat:{" "}
+                              {addressDetails.coordinates.latitude.toFixed(4)},
+                              Lon:{" "}
+                              {addressDetails.coordinates.longitude?.toFixed(4)}
+                            </div>
+                          )}
+                        </span>
+                      </div>
                     </div>
                   )}
-                </div>
 
-                {/* Map Visibility Toggle */}
-                {mapVisible && (
-                  <div className="mb-3 relative h-40 rounded-lg overflow-hidden">
-                    {/* Placeholder for the map - in production you would use a proper map library */}
-                    <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                      <span className="text-gray-500 dark:text-gray-400">
-                        OpenStreetMap would be displayed here
-                        {addressDetails.coordinates.latitude && (
-                          <div className="text-xs">
-                            Lat:{" "}
-                            {addressDetails.coordinates.latitude.toFixed(4)},
-                            Lon:{" "}
-                            {addressDetails.coordinates.longitude?.toFixed(4)}
-                          </div>
-                        )}
-                      </span>
+                  {/* Formatted Address Display */}
+                  {addressDetails.formattedAddress && (
+                    <div className="mb-3 p-2 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm">
+                      <p className="font-medium">Selected Address:</p>
+                      <p className="text-gray-600 dark:text-gray-400">
+                        {addressDetails.formattedAddress}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Additional Address Details */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <input
+                        type="text"
+                        name="buildingName"
+                        value={addressDetails.buildingName}
+                        onChange={handleAddressChange}
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
+                        placeholder="Building Name"
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="wing"
+                        value={addressDetails.wing}
+                        onChange={handleAddressChange}
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
+                        placeholder="Wing"
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="flatNumber"
+                        value={addressDetails.flatNumber}
+                        onChange={handleAddressChange}
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
+                        placeholder="Flat Number"
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="floor"
+                        value={addressDetails.floor}
+                        onChange={handleAddressChange}
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
+                        placeholder="Floor"
+                      />
                     </div>
                   </div>
-                )}
-
-                {/* Formatted Address Display */}
-                {addressDetails.formattedAddress && (
-                  <div className="mb-3 p-2 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm">
-                    <p className="font-medium">Selected Address:</p>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      {addressDetails.formattedAddress}
-                    </p>
-                  </div>
-                )}
-
-                {/* Additional Address Details */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
+                  <div className="mt-3">
                     <input
                       type="text"
-                      name="buildingName"
-                      value={addressDetails.buildingName}
+                      name="landmark"
+                      value={addressDetails.landmark}
                       onChange={handleAddressChange}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
-                      placeholder="Building Name"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="wing"
-                      value={addressDetails.wing}
-                      onChange={handleAddressChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
-                      placeholder="Wing"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="flatNumber"
-                      value={addressDetails.flatNumber}
-                      onChange={handleAddressChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
-                      placeholder="Flat Number"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="floor"
-                      value={addressDetails.floor}
-                      onChange={handleAddressChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
-                      placeholder="Floor"
+                      placeholder="Landmark"
                     />
                   </div>
                 </div>
-                <div className="mt-3">
-                  <input
-                    type="text"
-                    name="landmark"
-                    value={addressDetails.landmark}
-                    onChange={handleAddressChange}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-[#0084b8] focus:border-[#0084b8] bg-white dark:bg-zinc-800 text-gray-900 dark:text-white text-sm"
-                    placeholder="Landmark"
-                  />
-                </div>
-              </div>
+              )}
 
               {/* Submit Button */}
               <button
@@ -526,7 +615,7 @@ const AuthModalWithButton = ({
                     ></path>
                   </svg>
                 ) : null}
-                Create Order
+                {isLoginMode ? "Sign In" : "Create Order"}
               </button>
             </form>
           </div>
@@ -537,11 +626,17 @@ const AuthModalWithButton = ({
       <SuccessModal
         isOpen={isSuccessModalOpen}
         onClose={handleSuccessModalClose}
-        title="Order Created Successfully!"
-        message="Your order has been created and is now being processed. Thank you for choosing our service."
+        title="Success!"
+        message={
+          successMessage ||
+          "Your order has been created and is now being processed. Thank you for choosing our service."
+        }
       />
     </>
   );
 };
 
 export default AuthModalWithButton;
+function forgotPassword(phone: any) {
+  throw new Error("Function not implemented.");
+}

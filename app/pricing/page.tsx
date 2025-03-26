@@ -71,7 +71,7 @@ export default function PricingModal() {
             </div>
           </ModalContent>
           <div className="flex items-center justify-center gap-2 py-6">
-            <InteractiveHoverButton buttonText="Schedule a free pickup" />
+            <InteractiveHoverButton buttonText="Schedule a pickup" />
           </div>
         </ModalBody>
       </Modal>

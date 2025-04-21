@@ -150,11 +150,10 @@ export function useUserManagement() {
       const username = "safewash123";
       const apikey = "56d8fffb089659fd9177";
       const senderid = "SFEWSH"; // Updated to match what's in your dashboard
-      const templateid = "1707168121270085181"; // Updated to match what's in your dashboard
+      const templateid = "1707174495253037751"; // Updated to match what's in your dashboard
 
       // Format the complete message as per the template
-      const message = `Want your curtain or carpets to be cleaned along with your clothes?
-Safewash Drycleaners are now available for your doorstep pickup. Call us on ${password}`;
+      const message = `Thank you for using Safewash Drycleaners. Your forgotten password is ${password}.`;
 
       // Construct the API URL with the complete message
       const apiUrl = `https://smslogin.co/v3/api.php?username=${username}&apikey=${apikey}&senderid=${senderid}&mobile=${phone}&message=${encodeURIComponent(

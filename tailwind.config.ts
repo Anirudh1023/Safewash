@@ -57,7 +57,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        rubik: ["Rubik", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+        jakarta: ["Plus Jakarta Sans", "sans-serif"],
       },
       animation: {
         marquee: "marquee var(--duration) linear infinite",

@@ -1,131 +1,69 @@
 "use client";
 
-import { useEffect} from "react";
 import { Compare } from "./compare";
-import { AnimatePresence, motion } from "framer-motion";
-import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import React from "react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import tag from "./tag.svg";
-import cctv from "./cctv.svg";
-import squareScissors from "./square-scissors.svg";
-import dryclean from "./dryclean.svg";
-import anvil from "./anvil.svg";
-import shieldCheck from "./shield-check.svg";
-import handHeart from "./hand-heart.svg";
+import {
+  Tag,
+  Eye,
+  Scissors,
+  Sparkles,
+  Flame,
+  ShieldCheck,
+  HandHeart,
+  type LucideIcon
+} from "lucide-react";
 import Before from "./before.jpeg";
 import After from "./after.jpeg";
-import FlickeringGrid from "./FlickeringGrid";
-
-const AnimatedList = React.memo(
-  ({
-    className,
-    children,
-    delay = 1000,
-  }: {
-    className?: string;
-    children: React.ReactNode;
-    delay?: number;
-  }) => {
-    const [index, setIndex] = useState(0);
-    const childrenArray = useMemo(
-      () => React.Children.toArray(children),
-      [children]
-    );
-
-    useEffect(() => {
-      if (index === childrenArray.length - 1) {
-        const resetTimeout = setTimeout(() => {
-          setIndex(0);
-        }, delay * 2);
-        return () => clearTimeout(resetTimeout);
-      } else {
-        const timeout = setTimeout(() => {
-          setIndex((prevIndex) => prevIndex + 1);
-        }, delay);
-        return () => clearTimeout(timeout);
-      }
-    }, [index, delay, childrenArray.length]);
-
-    const itemsToShow = useMemo(() => {
-      const result = childrenArray.slice(0, index + 1).reverse();
-      return result;
-    }, [index, childrenArray]);
-
-    return (
-      <div className={`flex flex-col items-center gap-3 ${className}`}>
-        <AnimatePresence mode="popLayout">
-          {itemsToShow.map((item: React.ReactNode) => (
-            <AnimatedListItem key={(item as React.ReactElement).key}>
-              {item}
-            </AnimatedListItem>
-          ))}
-        </AnimatePresence>
-      </div>
-    );
-  }
-);
-
-AnimatedList.displayName = "AnimatedList";
-
-function AnimatedListItem({ children }: { children: React.ReactNode }) {
-  const animations = {
-    initial: { scale: 0, opacity: 0 },
-    animate: { scale: 1, opacity: 1, originY: 0 },
-    exit: { scale: 0, opacity: 0 },
-    transition: { type: "spring", stiffness: 350, damping: 40 },
-  };
-
-  return (
-    <motion.div {...animations} layout className="w-full">
-      {children}
-    </motion.div>
-  );
-}
 
 const ProcessStep = ({
   name,
   description,
-  icon,
-  color,
+  icon: Icon,
+  index,
 }: {
   name: string;
   description: string;
-  icon: string;
-  color: string;
+  icon: LucideIcon;
+  index: number;
 }) => {
   return (
-    <figure
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
       className={cn(
-        "relative w-full min-h-[90px] rounded-xl p-4",
-        "transition-all duration-200 ease-in-out hover:scale-[102%]",
-        "bg-white shadow-md",
-        "transform-gpu dark:bg-neutral-900 dark:border dark:border-neutral-800 "
+        "group relative rounded-2xl p-6",
+        "bg-white/70 backdrop-blur-xl",
+        "border-2 border-dashed border-[#0084b8]/30",
+        "transition-all duration-300",
+        "hover:bg-white/90 hover:border-[#0084b8]/60",
+        "hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#0084b8]/30"
       )}
     >
       <div className="flex items-start gap-4">
         <div
-          className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full shadow-lg"
-          style={{ backgroundColor: color }}
+          className={cn(
+            "relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl",
+            "bg-white/60 backdrop-blur-sm border-2 border-dashed border-[#0084b8]/30",
+            "group-hover:bg-[#0084b8]/20 group-hover:border-[#0084b8]/50",
+            "transition-all duration-300"
+          )}
         >
-          <Image
-            src={icon}
-            alt={name}
-            width={20}
-            height={20}
-            className="invert"
-          />
+          <Icon className="h-6 w-6 text-[#0084b8] group-hover:text-[#0084b8] transition-colors" strokeWidth={2} />
         </div>
-        <div className="flex flex-col justify-center">
-          <figcaption className="text-base font-semibold text-gray-700 dark:text-white mb-1">
+        <div className="flex flex-col justify-center flex-1">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">
             {name}
-          </figcaption>
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+          </h3>
+          <p className="text-sm text-gray-600 leading-relaxed">
             {description}
           </p>
         </div>
       </div>
-    </figure>
+    </motion.div>
   );
 };
 
@@ -134,97 +72,97 @@ const processSteps = [
     name: "Garment Reception and Tagging",
     description:
       "Initial receipt of customer garments and labeling for tracking.",
-    icon: tag,
-    color: "#00C9A7",
+    icon: Tag,
   },
   {
     name: "Sorting and Spot Cleaning",
     description:
       "Categorizing garments by fabric type, cleaning method, and pre-treating visible stains.",
-    icon: cctv,
-    color: "#FFB800",
+    icon: Eye,
   },
   {
     name: "Repair and Preparation",
     description:
       "Fixing buttons, embellishments, and preparing garments for cleaning.",
-    icon: squareScissors,
-    color: "#FF3D71",
+    icon: Scissors,
   },
   {
     name: "Dry Cleaning Process",
     description: "Main cleaning process using solvent.",
-    icon: dryclean,
-    color: "#1E86FF",
+    icon: Sparkles,
   },
   {
     name: "Pressing and Ironing",
     description: "Applying finishing touches to ensure garments are neat.",
-    icon: anvil,
-    color: "#9747FF",
+    icon: Flame,
   },
   {
     name: "Inspection and Quality Control",
     description: "Checking cleaned garments for quality and completeness.",
-    icon: shieldCheck,
-    color: "#00C9A7",
+    icon: ShieldCheck,
   },
   {
     name: "Customer Handover",
     description: "Final delivery of cleaned items with receipt verification.",
-    icon: handHeart,
-    color: "#FFB800",
+    icon: HandHeart,
   },
 ];
-
-const iteratedSteps = Array.from({ length: 3 }, () => processSteps).flat();
 
 const ProcessSec = () => {
   return (
     <section
       id="process"
-      className="w-full bg-neutral-50 dark:bg-neutral-900 z-50 relative"
+      className="w-full relative overflow-hidden bg-gradient-to-b from-white via-[#E3F2FD] via-[#BBDEFB] to-white"
     >
-      <div className="absolute inset-0 z-0">
-        <FlickeringGrid
-          squareSize={4}
-          gridGap={6}
-          flickerChance={0.5}
-          color="rgb(34, 197, 94)"
-          maxOpacity={0.15}
-          className="w-full h-full"
-        />
-      </div>
-      <div className="container mx-auto px-4 py-16 lg:px-8">
+      {/* Dotted pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `radial-gradient(circle, #0084b8 2px, transparent 2px)`,
+          backgroundSize: '24px 24px'
+        }}
+      />
+
+      <div className="container mx-auto px-4 py-24 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           {/* Left side: Process title and steps */}
           <div className="w-full lg:w-1/2">
-            <h2 className="text-4xl font-bold mb-8 lg:hidden text-neutral-500 dark:text-neutral-500">
+            <h2 className="text-5xl font-light mb-8 lg:hidden text-[#0084b8]">
               OUR PROCESS
             </h2>
             <div className="flex gap-8">
               <div className="hidden lg:block">
-                <div
-                  className="rotate-180 text-6xl font-bold tracking-wide text-neutral-500 dark:text-neutral-500"
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  className="rotate-180 text-6xl font-light tracking-wide text-[#0084b8]"
                   style={{ writingMode: "vertical-rl" }}
                 >
                   OUR PROCESS
-                </div>
+                </motion.div>
               </div>
-              <div className="h-[600px] overflow-hidden bg-transparent w-full">
-                <AnimatedList delay={2000}>
-                  {iteratedSteps.map((step, idx) => (
-                    <ProcessStep {...step} key={idx} />
+
+              <div className="w-full">
+                <div className="grid grid-cols-1 gap-4">
+                  {processSteps.map((step, idx) => (
+                    <ProcessStep {...step} key={idx} index={idx} />
                   ))}
-                </AnimatedList>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Right side: Compare component */}
           <div className="w-full lg:w-1/2">
-            <div className="w-full h-[600px] relative">
-              <div className="absolute inset-0 rounded-2xl overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="w-full h-[600px] lg:sticky lg:top-24"
+            >
+              <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-dashed border-[#0084b8]/30 shadow-2xl shadow-[#0084b8]/20">
                 <Compare
                   firstImage={Before.src}
                   secondImage={After.src}
@@ -235,7 +173,7 @@ const ProcessSec = () => {
                   autoplay={true}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

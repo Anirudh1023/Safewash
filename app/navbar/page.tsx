@@ -2,16 +2,24 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { AuthModal } from "@/components/ui/auth-modal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   // Handle scroll transparency
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+
+    // Set initial scroll state
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -33,53 +41,137 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/70 backdrop-blur-md shadow-lg" : "bg-transparent"
-      }`}
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="fixed w-full z-50 px-4 sm:px-6 lg:px-8 pt-4"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <span className="font-bold text-3xl text-[#0084b8]">SAFE</span>
-            <span className="font-bold text-3xl text-[#65A006]">WASH</span>
-          </div>
+      <div className={`max-w-7xl mx-auto rounded-3xl transition-all duration-500 border-2 border-[#0084b8] ${
+        isScrolled
+          ? "bg-white/90 backdrop-blur-xl shadow-xl shadow-[#0084b8]/10"
+          : "bg-white/20 backdrop-blur-lg border-opacity-40"
+      }`}>
+        <div className="flex justify-between items-center h-14 md:h-16 px-4 md:px-6">
+          {/* Logo with Icon */}
+          <motion.div
+            className="flex-shrink-0 flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Image
+              src="/logo.png"
+              alt="Safewash Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 md:w-10 md:h-10"
+            />
+            <div>
+              <span className={`font-semibold text-2xl md:text-3xl transition-colors duration-300 ${
+                isScrolled ? "text-[#0084b8]" : "text-white drop-shadow-lg"
+              }`}>
+                SAFE
+              </span>
+              <span className={`font-semibold text-2xl md:text-3xl transition-colors duration-300 ${
+                isScrolled ? "text-[#65A006]" : "text-white drop-shadow-lg"
+              }`}>
+                WASH
+              </span>
+            </div>
+          </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) =>
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item, index) =>
               item.path.startsWith("#") ? (
-                <button
+                <motion.button
                   key={item.name}
                   onClick={() => handleScrollToSection(item.path)}
-                  className={`text-gray-200 hover:text-[#65A006] px-2 py-2 rounded-md text-sm font-rubik transition-colors ${
-                    isScrolled ? "text-black" : "text-black"
+                  className={`relative px-4 py-2 rounded-full text-sm font-medium font-rubik transition-all duration-300 focus:outline-none ${
+                    isScrolled
+                      ? "text-gray-700 hover:text-[#65A006]"
+                      : "text-white hover:text-[#65A006]"
                   }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
-                  {item.name}
-                </button>
+                  <span className="relative z-10">{item.name}</span>
+                  <motion.div
+                    className={`absolute inset-0 rounded-full ${
+                      isScrolled ? "bg-gray-100" : "bg-white/20"
+                    }`}
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileHover={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                </motion.button>
               ) : (
-                <Link
+                <motion.div
                   key={item.name}
-                  href={item.path}
-                  className={`text-gray-200 hover:text-[#65A006] px-2 py-2 rounded-md text-sm font-rubik transition-colors ${
-                    isScrolled ? "text-black" : "text-black"
-                  }`}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
-                  {item.name}
-                </Link>
+                  <Link
+                    href={item.path}
+                    className={`relative px-4 py-2 rounded-full text-sm font-medium font-rubik transition-all duration-300 inline-block focus:outline-none ${
+                      isScrolled
+                        ? "text-gray-700 hover:text-[#65A006]"
+                        : "text-white hover:text-[#65A006]"
+                    }`}
+                  >
+                    <motion.span
+                      className="relative z-10"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {item.name}
+                    </motion.span>
+                    <motion.div
+                      className={`absolute inset-0 rounded-full ${
+                        isScrolled ? "bg-gray-100" : "bg-white/20"
+                      }`}
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileHover={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.2 }}
+                    />
+                  </Link>
+                </motion.div>
               )
             )}
+
+            {/* Schedule a Pickup Button */}
+            <motion.button
+              onClick={() => setIsAuthModalOpen(true)}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`ml-2 px-4 py-2 rounded-2xl text-sm font-semibold transition-all duration-300 border-2 border-dashed ${
+                isScrolled
+                  ? "bg-white/60 backdrop-blur-md border-[#0084b8]/40 text-[#0084b8] hover:bg-[#0084b8]/10 hover:border-[#0084b8]/60"
+                  : "bg-white/20 backdrop-blur-md border-white/40 text-white hover:bg-white/30 hover:border-white/60"
+              }`}
+            >
+              Schedule a Pickup
+            </motion.button>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
-            <button
+            <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`inline-flex items-center justify-center p-2 rounded-md ${
-                isScrolled ? "text-gray-800" : "text-white"
-              } hover:opacity-75 transition-colors`}
+              className={`inline-flex items-center justify-center p-2 rounded-lg transition-all duration-300 focus:outline-none ${
+                isScrolled
+                  ? "text-gray-800 bg-gray-100/50 backdrop-blur-sm"
+                  : "text-white bg-white/20 backdrop-blur-sm"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -113,40 +205,63 @@ const Navbar = () => {
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-white/90 backdrop-blur-md">
-          {navItems.map((item) =>
-            item.path.startsWith("#") ? (
-              <button
-                key={item.name}
-                onClick={() => {
-                  handleScrollToSection(item.path);
-                  setIsMenuOpen(false);
-                }}
-                className="text-gray-800 hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-              >
-                {item.name}
-              </button>
-            ) : (
-              <Link
-                key={item.name}
-                href={item.path}
-                className="text-gray-800 hover:bg-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            )
-          )}
-        </div>
-      </div>
-    </nav>
+      {/* Mobile menu with animation */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="md:hidden mt-2"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="rounded-3xl bg-white/95 backdrop-blur-xl shadow-xl p-3 space-y-1">
+              {navItems.map((item, index) =>
+                item.path.startsWith("#") ? (
+                  <motion.button
+                    key={item.name}
+                    onClick={() => {
+                      handleScrollToSection(item.path);
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full text-left text-gray-800 hover:bg-gradient-to-r hover:from-[#0084b8]/10 hover:to-[#65A006]/10 px-4 py-3 rounded-2xl text-base font-medium transition-all duration-300 focus:outline-none"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2, delay: index * 0.05 }}
+                    whileHover={{ x: 5 }}
+                  >
+                    {item.name}
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2, delay: index * 0.05 }}
+                  >
+                    <Link
+                      href={item.path}
+                      className="block text-gray-800 hover:bg-gradient-to-r hover:from-[#0084b8]/10 hover:to-[#65A006]/10 px-4 py-3 rounded-2xl text-base font-medium transition-all duration-300 focus:outline-none"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  </motion.div>
+                )
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+    </motion.nav>
   );
 };
 

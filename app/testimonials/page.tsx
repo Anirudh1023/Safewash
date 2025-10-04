@@ -61,7 +61,7 @@ const ReviewCard = ({
       stars.push(
         <span
           key={i}
-          className={i < rating ? "text-yellow-500" : "text-gray-300"}
+          className={i < rating ? "text-[#65A006]" : "text-gray-300"}
         >
           ★
         </span>
@@ -73,58 +73,77 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        "relative w-[300px] h-[160px] cursor-pointer overflow-hidden rounded-xl border p-6", // Increased size of the card
-        // light styles
-        "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-        // dark styles
-        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
+        "relative w-[320px] h-[180px] cursor-pointer overflow-hidden rounded-2xl p-6",
+        "bg-white/70 backdrop-blur-xl",
+        "border-2 border-dashed border-[#65A006]/30",
+        "transition-all duration-300",
+        "hover:bg-white/90 hover:border-[#65A006]/60",
+        "hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#65A006]/30"
       )}
     >
-      <div className="absolute top-2 left-2 flex flex-col">
-        <figcaption className="text-lg font-bold dark:text-white pl-3">
-          {name}
-        </figcaption>
-        <p className="text-sm font-medium dark:text-white/60 pl-3">
+      <div className="flex flex-col gap-2 mb-3">
+        <div className="flex items-center justify-between">
+          <figcaption className="text-lg font-bold text-gray-800">
+            {name}
+          </figcaption>
+          <div className="flex">
+            {renderStars(rating)}
+          </div>
+        </div>
+        <p className="text-sm font-medium text-gray-600">
           {username}
         </p>
       </div>
-      <blockquote className="mt-8 text-base pt-4">{body}</blockquote>
-      <div className="absolute top-2 right-2 flex pr-3">
-        {renderStars(rating)}
-      </div>
+      <blockquote className="text-sm text-gray-700 leading-relaxed">
+        {body}
+      </blockquote>
     </figure>
   );
 };
 
 export default function Testimonials() {
   return (
-    <div className="relative flex h-[600px] w-full flex-col items-center justify-center overflow-hidden bg-background md:shadow-xl">
-      {/* Heading and Sub-heading */}
-      <div className="relative top-10 text-center w-full mb-10">
-        <h2 className="text-3xl font-bold  text-neutral-600 dark:text-neutral-600">
-          TESTIMONIALS
-        </h2>
-        <p className="text-lg font-medium text-gray-500 dark:text-gray-300 py-5">
-          Customer Experiences That Speak for Themselves!
-        </p>
+    <div
+      id="testimonials"
+      className="relative w-full min-h-[800px] flex items-center justify-center overflow-hidden bg-white py-24 px-4 md:px-8 lg:px-16"
+    >
+      {/* Large glassomorphic container card */}
+      <div className="relative w-full max-w-[1600px] min-h-[700px] rounded-3xl border-2 border-dashed border-[#65A006]/40 bg-gradient-to-b from-white/50 via-[#E8F5E9] via-[#C8E6C9] to-white/50 backdrop-blur-sm p-8 md:p-12 lg:p-16 overflow-hidden">
+
+        {/* Background Lines Effect (Confetti) */}
+        <BackgroundLines className="absolute inset-0">
+          <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
+
+            {/* Heading and Sub-heading */}
+            <div className="text-center w-full mb-16">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#65A006] mb-4">
+                BEST SERVICE GUARANTEED
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+                Customer Experiences That Speak for Themselves!
+              </p>
+            </div>
+
+            {/* Marquee */}
+            <div className="relative w-full">
+              <Marquee pauseOnHover className="[--duration:30s]">
+                {firstRow.map((review) => (
+                  <ReviewCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+              <Marquee reverse pauseOnHover className="[--duration:30s] mt-4">
+                {secondRow.map((review) => (
+                  <ReviewCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+
+              {/* Gradient fade edges */}
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-white via-white/50 to-transparent z-20"></div>
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white via-white/50 to-transparent z-20"></div>
+            </div>
+          </div>
+        </BackgroundLines>
       </div>
-
-      {/* Marquee */}
-      <BackgroundLines>
-        <Marquee pauseOnHover className="[--duration:20s]">
-          {firstRow.map((review) => (
-            <ReviewCard key={review.username} {...review} />
-          ))}
-        </Marquee>
-        <Marquee reverse pauseOnHover className="[--duration:20s]">
-          {secondRow.map((review) => (
-            <ReviewCard key={review.username} {...review} />
-          ))}
-        </Marquee>
-      </BackgroundLines>
-
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
     </div>
   );
 }

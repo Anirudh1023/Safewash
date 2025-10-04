@@ -129,15 +129,15 @@ export default function Services() {
   return (
     <div
       id="services"
-      className="w-full min-h-screen bg-gray-700 dark:bg-neutral-950 z-50 relative py-24 px-5 md:px-10 lg:px-24"
+      className="w-full min-h-screen bg-gradient-to-b from-white via-[#E8F5E9] via-[#C8E6C9] to-white dark:bg-neutral-950 z-50 relative py-24 px-5 md:px-10 lg:px-24"
     >
-      <div className="max-w-[1800px] mx-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl">
+      <div className="max-w-[1800px] mx-auto bg-white/70 backdrop-blur-xl dark:bg-neutral-900 rounded-3xl shadow-2xl border-2 border-dashed border-[#65A006]/30">
         <div className="w-full min-h-[80vh] p-8 md:p-16 lg:p-24">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-500 dark:text-neutral-500 mb-12">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-[#65A006] dark:text-neutral-500 mb-8">
               OUR SERVICES
             </h1>
-            <p className="text-neutral-700 dark:text-neutral-300 text-xl md:text-2xl lg:text-3xl max-w-4xl mb-2">
+            <p className="text-neutral-700 dark:text-neutral-300 text-lg md:text-xl lg:text-2xl font-medium max-w-4xl mb-2 leading-relaxed">
               Experience premium care for all your garments and home furnishings
               with our comprehensive cleaning services.
             </p>

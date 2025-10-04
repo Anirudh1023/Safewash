@@ -20,6 +20,29 @@ export interface UserFormData {
   password: string;
 }
 
+// Helper function to format phone number and create email
+const formatPhoneNumber = (phone: string): string => {
+  // Remove any non-digit characters
+  let cleaned = phone.replace(/\D/g, '');
+
+  // Add +91 if not present and phone has 10 digits
+  if (cleaned.length === 10 && !cleaned.startsWith('91')) {
+    cleaned = '91' + cleaned;
+  }
+
+  // Add + at the beginning if not present
+  if (!cleaned.startsWith('+')) {
+    cleaned = '+' + cleaned;
+  }
+
+  return cleaned;
+};
+
+const phoneToEmail = (phone: string): string => {
+  const cleaned = phone.replace(/\D/g, '');
+  return `${cleaned}@safewash.app`;
+};
+
 export function useUserManagement() {
   const supabase = createClientComponentClient();
   const [loading, setLoading] = useState(false);
@@ -34,44 +57,70 @@ export function useUserManagement() {
       setLoading(true);
       setError(null);
 
+      const formattedPhone = formatPhoneNumber(formData.phoneNumber);
+      const email = phoneToEmail(formattedPhone);
+
       // 1. Create auth user with phone number as email
-      const { error: authError } = await supabase.auth.signUp({
-        email: `${formData.phoneNumber}@safewash`,
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
         password: formData.password,
-        phone: formData.phoneNumber,
+        options: {
+          data: {
+            name: formData.name,
+            role: role,
+            password: formData.password,
+            phone: formattedPhone
+          }
+        }
       });
 
       if (authError) throw authError;
+      if (!authData.user) throw new Error("Failed to create user");
 
-      // 2. Insert into users table
-      const { error: userError } = await supabase.from("users").insert({
-        mobile: formData.phoneNumber,
-        name: formData.name,
-        role: role,
-        pass: formData.password,
-      });
+      // 2. Insert into public.users table
+      const { data: publicUser, error: userError } = await supabase
+        .from("users")
+        .insert({
+          auth_user_id: authData.user.id,
+          phone: formattedPhone,
+          name: formData.name,
+          role: role,
+          password: formData.password,
+          status: 'active'
+        })
+        .select()
+        .single();
 
       if (userError) throw userError;
+      if (!publicUser) throw new Error("Failed to create user in database");
 
       // 3. If user role and address exists, insert address
-      if (role === "user" && addressDetails) {
-        const { error: addressError } = await supabase.from("address").insert({
-          mobile: formData.phoneNumber,
-          address: addressDetails,
+      if (role === "user" && addressDetails && publicUser.id) {
+        const { error: addressError } = await supabase.from("addresses").insert({
+          user_id: publicUser.id,
+          block_name: addressDetails.buildingName || '',
+          street_name: `${addressDetails.wing} ${addressDetails.flatNumber} ${addressDetails.floor}`.trim(),
+          area: addressDetails.formattedAddress || '',
+          city: 'Hyderabad', // Default city
+          lat: addressDetails.coordinates.latitude || 17.3850,
+          lng: addressDetails.coordinates.longitude || 78.4867,
+          label: 'Home',
+          is_default: true
         });
 
         if (addressError) throw addressError;
       }
 
-      return { success: true };
+      return { success: true, userId: publicUser.id };
     } catch (err) {
       // Clean up if any step fails
       try {
         if (formData.phoneNumber) {
+          const formattedPhone = formatPhoneNumber(formData.phoneNumber);
           await supabase
             .from("users")
             .delete()
-            .eq("mobile", formData.phoneNumber);
+            .eq("phone", formattedPhone);
         }
       } catch (cleanupError) {
         console.error("Cleanup error:", cleanupError);
@@ -89,15 +138,45 @@ export function useUserManagement() {
     setError(null);
 
     try {
+      const formattedPhone = formatPhoneNumber(userPhone);
+
+      // Get user ID and address ID
+      const { data: userData, error: userFetchError } = await supabase
+        .from("users")
+        .select("id")
+        .eq("phone", formattedPhone)
+        .single();
+
+      if (userFetchError) throw userFetchError;
+      if (!userData) throw new Error("User not found");
+
+      // Get default address
+      const { data: addressData, error: addressFetchError } = await supabase
+        .from("addresses")
+        .select("id")
+        .eq("user_id", userData.id)
+        .eq("is_default", true)
+        .single();
+
+      if (addressFetchError) throw addressFetchError;
+      if (!addressData) throw new Error("Default address not found");
+
+      // Generate order number
+      const orderNumber = `SW${Date.now()}`;
+
+      // Create order
       const { data, error } = await supabase
         .from("orders")
-        .insert([
-          {
-            user: userPhone,
-            pickup_status: false,
-            payment_status: false,
-          },
-        ])
+        .insert({
+          user_id: userData.id,
+          pickup_address_id: addressData.id,
+          order_number: orderNumber,
+          total_amount: 0,
+          status: 'created',
+          pickup_status: 'pending',
+          drop_status: 'pending',
+          payment_status: 'pending'
+        })
         .select()
         .single();
 
@@ -121,22 +200,24 @@ export function useUserManagement() {
         throw new Error("Please enter your phone number");
       }
 
+      const formattedPhone = formatPhoneNumber(phone);
+
       // Query the password from the public.users table
       const { data, error } = await supabase
         .from("users")
-        .select("pass")
-        .eq("mobile", phone)
+        .select("password")
+        .eq("phone", formattedPhone)
         .single();
 
       if (error) throw error;
 
-      if (!data || !data.pass) {
+      if (!data || !data.password) {
         throw new Error("No account found with this phone number");
       }
 
       // Send SMS with the password
-      const password = data.pass;
-      await sendPasswordSMS(phone, password);
+      const password = data.password;
+      await sendPasswordSMS(formattedPhone, password);
 
       return { success: true, error: null };
     } catch (error) {

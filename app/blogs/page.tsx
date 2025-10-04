@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { Carousel, Card } from "./carousel";
 import blog1 from "./a-watch-and-pinstripe-suit.jpg";
 import blog2 from "./mobile-phone-recording-person-doing-laundry.jpg";
@@ -6,7 +8,8 @@ import blog3 from "./white-doors-and-curtains-let-in-light-for-houseplants.jpg";
 import blog4 from "./suitcase.jpg";
 import blog5 from "./washing.jpg";
 import blog6 from "./leather-jacket.jpg";
-import InteractiveHoverButton from "@/components/ui/interactive-hover-button";
+import { WaterFillButton } from "@/components/ui/WaterFillButton";
+import { AuthModal } from "@/components/ui/auth-modal";
 
 export default function Blogs() {
   const cards = data
@@ -16,16 +19,25 @@ export default function Blogs() {
   return (
     <div
       id="blogs"
-      className="min-h-screen bg-white dark:bg-neutral-950 pt-10 relative overflow-hidden px-10"
+      className="min-h-screen bg-gradient-to-b from-white via-[#E3F2FD] via-[#BBDEFB] to-white relative overflow-hidden py-24 px-4 md:px-8 lg:px-10"
     >
+      {/* Dotted pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `radial-gradient(circle, #0084b8 2px, transparent 2px)`,
+          backgroundSize: '24px 24px'
+        }}
+      />
+
       {/* Content Layer */}
-      <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full max-w-7xl mx-auto">
         {/* Title in centered container */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-neutral-500 dark:text-neutral-500">
-            Our Latest Blogs
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#0084b8] mb-4">
+            OUR LATEST BLOGS
           </h1>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400 mt-5">
+          <p className="text-lg md:text-xl text-gray-600">
             Click on the card to know more
           </p>
         </div>
@@ -40,6 +52,8 @@ export default function Blogs() {
 }
 
 const BlogPost1 = () => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="prose prose-lg text-gray-700">
@@ -180,14 +194,19 @@ const BlogPost1 = () => {
           needs. Contact us today to learn more or schedule a service!
         </p>
         <div className="mt-8">
-          <InteractiveHoverButton buttonText="Schedule a pickup" />
+          <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+            Schedule a Pickup
+          </WaterFillButton>
         </div>
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost2 = () => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold text-gray-800 mb-4">
@@ -272,14 +291,19 @@ const BlogPost2 = () => {
           learn more or experience the difference for yourself!
         </p>
         <div className="mt-8">
-          <InteractiveHoverButton buttonText="Schedule a pickup" />
+          <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+            Schedule a Pickup
+          </WaterFillButton>
         </div>
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost3 = () => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold text-gray-800 mb-4">
@@ -413,14 +437,19 @@ const BlogPost3 = () => {
           learn more or book a service!
         </p>
         <div className="mt-8">
-          <InteractiveHoverButton buttonText="Schedule a pickup" />
+          <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+            Schedule a Pickup
+          </WaterFillButton>
         </div>
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost4 = () => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <p className="text-gray-700 mb-6">
@@ -548,13 +577,18 @@ const BlogPost4 = () => {
         contact <strong>Safewash Drycleaners</strong> today.
       </p>
       <div className="mt-8">
-        <InteractiveHoverButton buttonText="Schedule a pickup" />
+        <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+          Schedule a Pickup
+        </WaterFillButton>
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost5 = () => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <p className="text-gray-700 mb-6">
@@ -701,13 +735,18 @@ const BlogPost5 = () => {
         and premium laundry care.
       </p>
       <div className="mt-8">
-        <InteractiveHoverButton buttonText="Schedule a pickup" />
+        <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+          Schedule a Pickup
+        </WaterFillButton>
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost6 = () => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <section className="mb-12">
@@ -815,15 +854,18 @@ const BlogPost6 = () => {
           to come.
         </p>
         <p className="text-lg text-gray-700 mt-4">
-          Don’t wait for wear and tear to take its toll. Contact{" "}
+          Don&apos;t wait for wear and tear to take its toll. Contact{" "}
           <strong>Safewash Drycleaners</strong> today for all your leather care
           needs.
         </p>
       </section>
 
       <div className="mt-8">
-        <InteractiveHoverButton buttonText="Schedule a pickup" />
+        <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+          Schedule a Pickup
+        </WaterFillButton>
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 };

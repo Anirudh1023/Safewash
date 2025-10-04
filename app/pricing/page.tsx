@@ -1,50 +1,53 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Modal, ModalBody, ModalContent, ModalTrigger } from "./animated-modal";
 import { motion } from "framer-motion";
-import { DollarSign } from "lucide-react";
 import Price from "./Pricing.jpeg";
-import InteractiveHoverButton from "@/components/ui/interactive-hover-button";
-import FullscreenImage from "./magnifying-image"; // Add this import
+import { WaterFillButton } from "@/components/ui/WaterFillButton";
+import FullscreenImage from "./magnifying-image";
+import { AuthModal } from "@/components/ui/auth-modal";
 
 export default function PricingModal() {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   return (
     <div
       id="pricing"
-      className="pb-10 flex items-center justify-center bg-white z-5 relative"
+      className="py-24 flex items-center justify-center bg-gradient-to-b from-white via-[#E8F5E9] via-[#C8E6C9] to-white z-5 relative"
     >
+      {/* Dotted pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `radial-gradient(circle, #65A006 2px, transparent 2px)`,
+          backgroundSize: '24px 24px'
+        }}
+      />
+
       <Modal>
-        <div className="flex flex-col items-center justify-center text-center px-4">
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-4">
+        <div className="flex flex-col items-center justify-center text-center px-4 relative z-10">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#65A006] mb-6">
+            PRICING
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mb-8">
             Experience premium dry cleaning and laundry services at prices
-            you&apos;ll love!
-            <br />
-            Click below to know more.
-          </h3>
-          <ModalTrigger className="bg-[#65A006] dark:bg-white dark:text-black text-white flex justify-center group/modal-btn relative overflow-hidden px-6 py-2 rounded-md">
-            <span className="group-hover/modal-btn:translate-x-32 text-center transition duration-500">
-              View Pricing
-            </span>
-            <div className="absolute inset-0 -translate-x-32 group-hover/modal-btn:translate-x-0 flex items-center justify-center transition duration-500">
-              <DollarSign className="h-5 w-5" />
-            </div>
+            you&apos;ll love! Click below to know more.
+          </p>
+          <ModalTrigger className="relative overflow-hidden px-8 py-3 text-lg rounded-2xl font-semibold border-2 border-dashed border-[#65A006] text-[#65A006] hover:bg-[#65A006] hover:text-white transition-all duration-300 hover:scale-105 active:scale-95">
+            View Pricing
           </ModalTrigger>
         </div>
 
         <ModalBody className="w-[95%] md:w-[90%] lg:w-[85%] max-w-6xl max-h-[90vh] overflow-y-auto">
           <ModalContent className="p-4 md:p-6 flex flex-col">
-            <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-6">
-              Our{" "}
-              <span className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
-                Affordable
-              </span>{" "}
-              Pricing Plans
+            <h4 className="text-2xl md:text-3xl text-[#65A006] font-light text-center mb-8">
+              OUR AFFORDABLE PRICING PLANS
             </h4>
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
+              className="rounded-3xl overflow-hidden border-2 border-dashed border-[#65A006]/30 bg-white/70 backdrop-blur-xl p-4 shadow-2xl shadow-[#65A006]/20"
             >
               <FullscreenImage src={Price.src} alt="pricing plans" />
             </motion.div>
@@ -71,10 +74,15 @@ export default function PricingModal() {
             </div>
           </ModalContent>
           <div className="flex items-center justify-center gap-2 py-6">
-            <InteractiveHoverButton buttonText="Schedule a pickup" />
+            <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+              Schedule a Pickup
+            </WaterFillButton>
           </div>
         </ModalBody>
       </Modal>
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </div>
   );
 }

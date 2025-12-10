@@ -8,11 +8,10 @@ import Image2 from "@/public/assets/two.jpg";
 import Image3 from "@/public/assets/three.jpg";
 import Image4 from "@/public/assets/four.jpg";
 import Image5 from "@/public/assets/five.jpg";
-import bg from "@/public/assets/safewashFinal.png";
 import { WaterFillButton } from "@/components/ui/WaterFillButton";
 import SparklesText from "@/components/ui/sparkles-text";
 import { Apple, PlayCircle } from "lucide-react";
-import { AuthModal } from "@/components/ui/auth-modal";
+import { InstallAppModal } from "@/components/ui/install-app-modal";
 
 export default function ImagesSlider() {
   const container = useRef(null);
@@ -20,9 +19,9 @@ export default function ImagesSlider() {
   const [nextIndex, setNextIndex] = useState(1);
   const controls = useAnimation();
   const zoomControls = useAnimation();
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
-  const images = [Image1, bg, Image2, bg, Image3, bg, Image4, bg, Image5, bg];
+  const images = [Image1, Image2, Image3, Image4, Image5];
 
   // Parallax scroll effect
   const { scrollYProgress } = useScroll({
@@ -65,7 +64,7 @@ export default function ImagesSlider() {
   return (
     <div className="relative h-screen w-full overflow-hidden" ref={container}>
       <motion.div style={{ y }} className="relative h-full">
-        {/* Current Image with Enhanced Gradient Overlay */}
+        {/* Current Image with Glassomorphic Overlay */}
         <div className="absolute inset-0">
           <Image
             src={images[currentIndex]}
@@ -74,10 +73,10 @@ export default function ImagesSlider() {
             style={{ objectFit: "cover" }}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent backdrop-blur-[2px]" />
         </div>
 
-        {/* Next Image with ClipPath Reveal and Zoom Animation */}
+        {/* Next Image with ClipPath Reveal, Zoom and Glassomorphic Effect */}
         <motion.div
           className="absolute inset-0"
           animate={controls}
@@ -94,7 +93,9 @@ export default function ImagesSlider() {
               fill
               style={{ objectFit: "cover" }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent backdrop-blur-[2px]" />
+            {/* Glassomorphic shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
           </motion.div>
         </motion.div>
 
@@ -125,7 +126,7 @@ export default function ImagesSlider() {
 
             {/* Button and App Store Icons Container */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-2">
-              <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+              <WaterFillButton variant="primary" onClick={() => setIsInstallModalOpen(true)}>
                 Schedule a Pickup
               </WaterFillButton>
 
@@ -138,10 +139,12 @@ export default function ImagesSlider() {
               >
                 {/* Play Store */}
                 <motion.a
-                  href="#"
+                  href="https://play.google.com/store/apps/details?id=com.anirudh1023.Safewash&pcampaignid=web_share"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border-2 border-dashed border-white/20 hover:bg-white/20 hover:border-white/40 transition-all shadow-lg"
+                  className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all shadow-lg"
                 >
                   <PlayCircle size={20} className="text-white" />
                   <span className="text-white text-sm font-medium hidden md:block">
@@ -151,10 +154,12 @@ export default function ImagesSlider() {
 
                 {/* App Store */}
                 <motion.a
-                  href="#"
+                  href="https://apps.apple.com/in/app/safewash-drycleaners-hyd/id6742979933"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border-2 border-dashed border-white/20 hover:bg-white/20 hover:border-white/40 transition-all shadow-lg"
+                  className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all shadow-lg"
                 >
                   <Apple size={20} className="text-white" />
                   <span className="text-white text-sm font-medium hidden md:block">
@@ -167,8 +172,8 @@ export default function ImagesSlider() {
         </div>
       </motion.div>
 
-      {/* Auth Modal */}
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      {/* Install App Modal */}
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </div>
   );
 }

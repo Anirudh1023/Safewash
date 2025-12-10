@@ -127,7 +127,7 @@ const ProcessSec = () => {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           {/* Left side: Process title and steps */}
           <div className="w-full lg:w-1/2">
-            <h2 className="text-5xl font-light mb-8 lg:hidden text-[#0084b8]">
+            <h2 className="text-4xl md:text-5xl font-semibold mb-8 lg:hidden text-[#0084b8] drop-shadow-[0_2px_4px_rgba(0,132,184,0.3)]">
               OUR PROCESS
             </h2>
             <div className="flex gap-8">

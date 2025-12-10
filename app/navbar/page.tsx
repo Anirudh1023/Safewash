@@ -4,12 +4,12 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { AuthModal } from "@/components/ui/auth-modal";
+import { InstallAppModal } from "@/components/ui/install-app-modal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   // Handle scroll transparency
   useEffect(() => {
@@ -47,11 +47,10 @@ const Navbar = () => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="fixed w-full z-50 px-4 sm:px-6 lg:px-8 pt-4"
     >
-      <div className={`max-w-7xl mx-auto rounded-3xl transition-all duration-500 border-2 border-[#0084b8] ${
-        isScrolled
+      <div className={`max-w-7xl mx-auto rounded-3xl transition-all duration-500 border-2 border-[#0084b8] ${isScrolled
           ? "bg-white/90 backdrop-blur-xl shadow-xl shadow-[#0084b8]/10"
           : "bg-white/20 backdrop-blur-lg border-opacity-40"
-      }`}>
+        }`}>
         <div className="flex justify-between items-center h-14 md:h-16 px-4 md:px-6">
           {/* Logo with Icon */}
           <motion.div
@@ -67,14 +66,12 @@ const Navbar = () => {
               className="w-8 h-8 md:w-10 md:h-10"
             />
             <div>
-              <span className={`font-semibold text-2xl md:text-3xl transition-colors duration-300 ${
-                isScrolled ? "text-[#0084b8]" : "text-white drop-shadow-lg"
-              }`}>
+              <span className={`font-semibold text-2xl md:text-3xl transition-colors duration-300 ${isScrolled ? "text-[#0084b8]" : "text-white drop-shadow-lg"
+                }`}>
                 SAFE
               </span>
-              <span className={`font-semibold text-2xl md:text-3xl transition-colors duration-300 ${
-                isScrolled ? "text-[#65A006]" : "text-white drop-shadow-lg"
-              }`}>
+              <span className={`font-semibold text-2xl md:text-3xl transition-colors duration-300 ${isScrolled ? "text-[#65A006]" : "text-white drop-shadow-lg"
+                }`}>
                 WASH
               </span>
             </div>
@@ -87,11 +84,10 @@ const Navbar = () => {
                 <motion.button
                   key={item.name}
                   onClick={() => handleScrollToSection(item.path)}
-                  className={`relative px-4 py-2 rounded-full text-sm font-medium font-rubik transition-all duration-300 focus:outline-none ${
-                    isScrolled
+                  className={`relative px-4 py-2 rounded-full text-sm font-medium font-rubik transition-all duration-300 focus:outline-none ${isScrolled
                       ? "text-gray-700 hover:text-[#65A006]"
                       : "text-white hover:text-[#65A006]"
-                  }`}
+                    }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: -20 }}
@@ -100,9 +96,8 @@ const Navbar = () => {
                 >
                   <span className="relative z-10">{item.name}</span>
                   <motion.div
-                    className={`absolute inset-0 rounded-full ${
-                      isScrolled ? "bg-gray-100" : "bg-white/20"
-                    }`}
+                    className={`absolute inset-0 rounded-full ${isScrolled ? "bg-gray-100" : "bg-white/20"
+                      }`}
                     initial={{ scale: 0, opacity: 0 }}
                     whileHover={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.2 }}
@@ -117,11 +112,10 @@ const Navbar = () => {
                 >
                   <Link
                     href={item.path}
-                    className={`relative px-4 py-2 rounded-full text-sm font-medium font-rubik transition-all duration-300 inline-block focus:outline-none ${
-                      isScrolled
+                    className={`relative px-4 py-2 rounded-full text-sm font-medium font-rubik transition-all duration-300 inline-block focus:outline-none ${isScrolled
                         ? "text-gray-700 hover:text-[#65A006]"
                         : "text-white hover:text-[#65A006]"
-                    }`}
+                      }`}
                   >
                     <motion.span
                       className="relative z-10"
@@ -131,9 +125,8 @@ const Navbar = () => {
                       {item.name}
                     </motion.span>
                     <motion.div
-                      className={`absolute inset-0 rounded-full ${
-                        isScrolled ? "bg-gray-100" : "bg-white/20"
-                      }`}
+                      className={`absolute inset-0 rounded-full ${isScrolled ? "bg-gray-100" : "bg-white/20"
+                        }`}
                       initial={{ scale: 0, opacity: 0 }}
                       whileHover={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.2 }}
@@ -145,17 +138,16 @@ const Navbar = () => {
 
             {/* Schedule a Pickup Button */}
             <motion.button
-              onClick={() => setIsAuthModalOpen(true)}
+              onClick={() => setIsInstallModalOpen(true)}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.6 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`ml-2 px-4 py-2 rounded-2xl text-sm font-semibold transition-all duration-300 border-2 border-dashed ${
-                isScrolled
+              className={`ml-2 px-4 py-2 rounded-2xl text-sm font-semibold transition-all duration-300 border-2 ${isScrolled
                   ? "bg-white/60 backdrop-blur-md border-[#0084b8]/40 text-[#0084b8] hover:bg-[#0084b8]/10 hover:border-[#0084b8]/60"
                   : "bg-white/20 backdrop-blur-md border-white/40 text-white hover:bg-white/30 hover:border-white/60"
-              }`}
+                }`}
             >
               Schedule a Pickup
             </motion.button>
@@ -165,11 +157,10 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`inline-flex items-center justify-center p-2 rounded-lg transition-all duration-300 focus:outline-none ${
-                isScrolled
+              className={`inline-flex items-center justify-center p-2 rounded-lg transition-all duration-300 focus:outline-none ${isScrolled
                   ? "text-gray-800 bg-gray-100/50 backdrop-blur-sm"
                   : "text-white bg-white/20 backdrop-blur-sm"
-              }`}
+                }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-expanded="false"
@@ -259,8 +250,8 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {/* Auth Modal */}
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      {/* Install App Modal */}
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </motion.nav>
   );
 };

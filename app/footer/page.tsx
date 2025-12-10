@@ -41,7 +41,7 @@ const Footer: FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="rounded-3xl border-2 border-dashed border-[#0084b8]/40 bg-white/70 backdrop-blur-xl p-8 md:p-12 lg:p-16 shadow-2xl shadow-[#0084b8]/20"
+          className="rounded-3xl border-2 border-[#0084b8]/40 bg-white/70 backdrop-blur-xl p-8 md:p-12 lg:p-16 shadow-2xl shadow-[#0084b8]/20"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {/* Logo and Description */}
@@ -127,7 +127,7 @@ const Footer: FC = () => {
               >
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex items-center gap-3 group">
-                    <div className="p-2 rounded-xl bg-white/60 backdrop-blur-sm border-2 border-dashed border-[#0084b8]/30 group-hover:border-[#0084b8]/60 transition-all duration-300">
+                    <div className="p-2 rounded-xl bg-white/60 backdrop-blur-sm border-2 border-[#0084b8]/30 group-hover:border-[#0084b8]/60 transition-all duration-300">
                       <info.icon className="h-5 w-5 text-[#0084b8]" />
                     </div>
                     {info.href ? (
@@ -165,7 +165,7 @@ const Footer: FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="px-6 py-3 rounded-2xl bg-white/60 backdrop-blur-md border-2 border-dashed border-[#0084b8]/30 shadow-lg"
+              className="px-6 py-3 rounded-2xl bg-white/60 backdrop-blur-md border-2 border-[#0084b8]/30 shadow-lg"
             >
               <p className="text-gray-700 text-sm font-medium">
                 Designed and Developed by{" "}

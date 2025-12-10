@@ -34,7 +34,7 @@ export const WaterFillButton: React.FC<WaterFillButtonProps> = ({
 
   return (
     <motion.button
-      className={`relative overflow-hidden px-6 py-3 rounded-2xl font-semibold border-2 border-dashed ${className}`}
+      className={`relative overflow-hidden px-6 py-3 rounded-2xl font-semibold border-2 ${className}`}
       style={{
         backgroundColor: "transparent",
         borderColor: waterColor,

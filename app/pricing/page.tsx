@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import Price from "./Pricing.jpeg";
 import { WaterFillButton } from "@/components/ui/WaterFillButton";
 import FullscreenImage from "./magnifying-image";
-import { AuthModal } from "@/components/ui/auth-modal";
+import { InstallAppModal } from "@/components/ui/install-app-modal";
 
 export default function PricingModal() {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
   return (
     <div
       id="pricing"
@@ -32,7 +32,7 @@ export default function PricingModal() {
             Experience premium dry cleaning and laundry services at prices
             you&apos;ll love! Click below to know more.
           </p>
-          <ModalTrigger className="relative overflow-hidden px-8 py-3 text-lg rounded-2xl font-semibold border-2 border-dashed border-[#65A006] text-[#65A006] hover:bg-[#65A006] hover:text-white transition-all duration-300 hover:scale-105 active:scale-95">
+          <ModalTrigger className="relative overflow-hidden px-8 py-3 text-lg rounded-2xl font-semibold border-2 border-[#65A006] text-[#65A006] hover:bg-[#65A006] hover:text-white transition-all duration-300 hover:scale-105 active:scale-95">
             View Pricing
           </ModalTrigger>
         </div>
@@ -47,7 +47,7 @@ export default function PricingModal() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
-              className="rounded-3xl overflow-hidden border-2 border-dashed border-[#65A006]/30 bg-white/70 backdrop-blur-xl p-4 shadow-2xl shadow-[#65A006]/20"
+              className="rounded-3xl overflow-hidden border-2 border-[#65A006]/30 bg-white/70 backdrop-blur-xl p-4 shadow-2xl shadow-[#65A006]/20"
             >
               <FullscreenImage src={Price.src} alt="pricing plans" />
             </motion.div>
@@ -74,15 +74,15 @@ export default function PricingModal() {
             </div>
           </ModalContent>
           <div className="flex items-center justify-center gap-2 py-6">
-            <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+            <WaterFillButton variant="primary" onClick={() => setIsInstallModalOpen(true)}>
               Schedule a Pickup
             </WaterFillButton>
           </div>
         </ModalBody>
       </Modal>
 
-      {/* Auth Modal */}
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      {/* Install App Modal */}
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </div>
   );
 }

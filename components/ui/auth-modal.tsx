@@ -54,6 +54,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     area: "",
     city: "",
     label: "Home",
+    lat: null as number | null,
+    lng: null as number | null,
   });
 
   // Address search state
@@ -79,6 +81,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         area: "",
         city: "",
         label: "Home",
+        lat: null,
+        lng: null,
       });
     }
   }, [isOpen]);
@@ -153,6 +157,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     const area = addr.neighbourhood || addr.suburb || addr.city || "";
     const city = addr.city || "Hyderabad";
 
+    // Capture latitude and longitude from search result
+    const latitude = parseFloat(result.lat);
+    const longitude = parseFloat(result.lon);
+
     setAddressSearch(result.display_name);
     setSelectedAddress({
       block_name: blockName,
@@ -160,6 +168,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
       area: area,
       city: city,
       label: "Home",
+      lat: isNaN(latitude) ? null : latitude,
+      lng: isNaN(longitude) ? null : longitude,
     });
     setShowSuggestions(false);
   };
@@ -323,8 +333,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             area: selectedAddress.area,
             city: selectedAddress.city,
             label: selectedAddress.label,
-            lat: 17.385,
-            lng: 78.4867,
+            lat: selectedAddress.lat ?? 17.385, // Use captured coordinates or default to Hyderabad
+            lng: selectedAddress.lng ?? 78.4867,
             is_default: true,
           },
         ])
@@ -409,7 +419,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-dashed border-[#0084b8]/30"
+          className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-[#0084b8]/30"
         >
           {/* Close button */}
           <button
@@ -470,7 +480,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mb-4 p-4 bg-red-50 border-2 border-dashed border-red-200 rounded-2xl flex items-start gap-3"
+                  className="mb-4 p-4 bg-red-50 border-2 border-red-200 rounded-2xl flex items-start gap-3"
                 >
                   <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
                   <p className="text-red-800 text-sm">{error}</p>
@@ -482,7 +492,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mb-4 p-4 bg-green-50 border-2 border-dashed border-green-200 rounded-2xl flex items-start gap-3"
+                  className="mb-4 p-4 bg-green-50 border-2 border-green-200 rounded-2xl flex items-start gap-3"
                 >
                   <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <p className="text-green-800 text-sm">{success}</p>

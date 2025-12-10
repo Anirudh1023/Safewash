@@ -102,8 +102,8 @@ export function useUserManagement() {
           street_name: `${addressDetails.wing} ${addressDetails.flatNumber} ${addressDetails.floor}`.trim(),
           area: addressDetails.formattedAddress || '',
           city: 'Hyderabad', // Default city
-          lat: addressDetails.coordinates.latitude || 17.3850,
-          lng: addressDetails.coordinates.longitude || 78.4867,
+          lat: addressDetails.coordinates.latitude ?? 17.3850, // Use nullish coalescing to only fallback if null/undefined
+          lng: addressDetails.coordinates.longitude ?? 78.4867,
           label: 'Home',
           is_default: true
         });

@@ -9,7 +9,7 @@ import blog4 from "./suitcase.jpg";
 import blog5 from "./washing.jpg";
 import blog6 from "./leather-jacket.jpg";
 import { WaterFillButton } from "@/components/ui/WaterFillButton";
-import { AuthModal } from "@/components/ui/auth-modal";
+import { InstallAppModal } from "@/components/ui/install-app-modal";
 
 export default function Blogs() {
   const cards = data
@@ -52,7 +52,7 @@ export default function Blogs() {
 }
 
 const BlogPost1 = () => {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -194,18 +194,18 @@ const BlogPost1 = () => {
           needs. Contact us today to learn more or schedule a service!
         </p>
         <div className="mt-8">
-          <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+          <WaterFillButton variant="primary" onClick={() => setIsInstallModalOpen(true)}>
             Schedule a Pickup
           </WaterFillButton>
         </div>
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost2 = () => {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -291,18 +291,18 @@ const BlogPost2 = () => {
           learn more or experience the difference for yourself!
         </p>
         <div className="mt-8">
-          <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+          <WaterFillButton variant="primary" onClick={() => setIsInstallModalOpen(true)}>
             Schedule a Pickup
           </WaterFillButton>
         </div>
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost3 = () => {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -437,18 +437,18 @@ const BlogPost3 = () => {
           learn more or book a service!
         </p>
         <div className="mt-8">
-          <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+          <WaterFillButton variant="primary" onClick={() => setIsInstallModalOpen(true)}>
             Schedule a Pickup
           </WaterFillButton>
         </div>
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost4 = () => {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -577,17 +577,17 @@ const BlogPost4 = () => {
         contact <strong>Safewash Drycleaners</strong> today.
       </p>
       <div className="mt-8">
-        <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+        <WaterFillButton variant="primary" onClick={() => setIsInstallModalOpen(true)}>
           Schedule a Pickup
         </WaterFillButton>
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost5 = () => {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -735,17 +735,17 @@ const BlogPost5 = () => {
         and premium laundry care.
       </p>
       <div className="mt-8">
-        <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+        <WaterFillButton variant="primary" onClick={() => setIsInstallModalOpen(true)}>
           Schedule a Pickup
         </WaterFillButton>
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </div>
   );
 };
 
 const BlogPost6 = () => {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -861,11 +861,11 @@ const BlogPost6 = () => {
       </section>
 
       <div className="mt-8">
-        <WaterFillButton variant="primary" onClick={() => setIsAuthModalOpen(true)}>
+        <WaterFillButton variant="primary" onClick={() => setIsInstallModalOpen(true)}>
           Schedule a Pickup
         </WaterFillButton>
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <InstallAppModal isOpen={isInstallModalOpen} onClose={() => setIsInstallModalOpen(false)} />
     </div>
   );
 };

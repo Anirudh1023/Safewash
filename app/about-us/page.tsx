@@ -49,7 +49,7 @@ export default function WhoWeAre() {
           </div>
 
           {/* Content */}
-          <div className="absolute bottom-0 flex w-full flex-col p-6 md:p-8 lg:p-12 bg-gradient-to-t from-[#0084b8]/30 via-[#0084b8]/20 to-transparent backdrop-blur-md rounded-b-3xl z-20 border-t-2 border-dashed border-[#0084b8]">
+          <div className="absolute bottom-0 flex w-full flex-col p-6 md:p-8 lg:p-12 bg-gradient-to-t from-[#0084b8]/10 via-[#0084b8]/5 to-transparent backdrop-blur-md rounded-b-3xl z-20 border-t-2 border-dashed border-[#0084b8]">
             <p className="text-base md:text-lg lg:text-xl font-medium text-gray-800 dark:text-white max-w-2xl leading-relaxed">
               Safewash, established in 2015, is Hyderabad&apos;s first premium
               laundry and dry-cleaning service. We combine exceptional customer
